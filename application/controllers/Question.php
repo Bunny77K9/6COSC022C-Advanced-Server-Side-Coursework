@@ -2,9 +2,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *  Post Controller
+ *  Question Controller
  */
-class Post extends CI_Controller
+class Question extends CI_Controller
 {
 	function __construct()
 	{
@@ -14,13 +14,13 @@ class Post extends CI_Controller
 
 	public function index()
 	{
-		$data['data'] = $this->crud->get_records('posts');
-		$this->load->view('post/list', $data);
+		$data['data'] = $this->crud->get_records('questions');
+		$this->load->view('question/list', $data);
 	}
 
 	public function create()
 	{
-		$this->load->view('post/create');
+		$this->load->view('question/create');
 	}
 
 	public function store()
@@ -28,15 +28,15 @@ class Post extends CI_Controller
 		$data['title'] = $this->input->post('title');
 		$data['description'] = $this->input->post('description');
 
-		$this->crud->insert('posts', $data);
+		$this->crud->insert('questions', $data);
 		$this->session->set_flashdata('message', '<div class="alert alert-success">Record has been saved successfully.</div>');
 		redirect(base_url());
 	}
 
 	public function edit($id)
 	{
-		$data['data'] = $this->crud->find_record_by_id('posts', $id);
-		$this->load->view('post/edit', $data);
+		$data['data'] = $this->crud->find_record_by_id('questions', $id);
+		$this->load->view('question/edit', $data);
 	}
 
 	public function update($id)
@@ -44,14 +44,14 @@ class Post extends CI_Controller
 		$data['title'] = $this->input->post('title');
 		$data['description'] = $this->input->post('description');
 
-		$this->crud->update('posts', $data, $id);
+		$this->crud->update('questions', $data, $id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success">Record has been updated successfully.</div>');
 		redirect(base_url());
 	}
 
 	public function delete($id)
 	{
-		$this->crud->delete('posts', $id);
+		$this->crud->delete('questions', $id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success">Record has been deleted successfully.</div>');
 		redirect(base_url());
 	}

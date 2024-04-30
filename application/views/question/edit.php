@@ -3,7 +3,7 @@
 
 <head>
   <?php $this->load->view('includes/header'); ?>
-  <title>Edit Post</title>
+  <title>Tech Corner - Edit Question</title>
 </head>
 
 <body>
@@ -12,17 +12,17 @@
     <div class="row">
 
       <div class="col-lg-12 my-5">
-        <h2 class="text-center mb-3">Codeigniter 3 CRUD (Create-Read-Update-Delete) Application</h2>
+        <h2 class="text-center mb-3">Tech Corner</h2>
       </div>
 
       <div class="col-lg-12">
 
         <div class="d-flex justify-content-between ">
-          <h4>Edit Post</h4>
+          <h4>Edit Question</h4>
           <a class="btn btn-warning" href="<?php echo base_url(); ?>"> <i class="fas fa-angle-left"></i> Back</a>
         </div>
 
-        <form method="post" action="<?php echo base_url('index.php/post/update/' . $data->id); ?>">
+        <form method="post" action="<?php echo base_url('index.php/question/update/' . $data->id); ?>">
 
           <div class="form-group">
             <label>Title</label>
