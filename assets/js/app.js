@@ -80,7 +80,6 @@ function validateChangePasswordForm(){
 	}
 
 	return userPass;
-
 }
 
 function validateAnswerForm() {
