@@ -32,7 +32,6 @@ app.views.questionAnswerView = Backbone.View.extend({
 		var lastPart = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
 		var $questionid = parseInt(lastPart.match(/\d+$/)[0]);
 
-
 		$userJson = JSON.parse(localStorage.getItem("user"));
 		$userid = $userJson['user_id'];
 
@@ -46,70 +45,35 @@ app.views.questionAnswerView = Backbone.View.extend({
 		var url = this.model.url + 'add_bookmark';
 		count = 0;
 
-		if (count == 0) {
-			let notificationShowing = false;
-
-			$.ajax({
-				"url": url,
-				type: 'POST',
-				data: bookmark,
-				success: (response) => {
-					bookmark["questionid"] = "";
-					bookmark["userid"] = "";
-					console.log("questionid: " + bookmark["questionid"])
-					console.log('bookmark add');
-					$bookmarkIcon.removeClass('fa-regular').addClass('fa-solid');
-					$bookmarkIcon.attr('id', 'remove-bookmark');
-					if (!notificationShowing) {
-						new Noty({
-							theme: 'bootstrap-v4',
-							layout: 'bottomRight',
-							type: 'success',
-							text: 'Bookmark added successfully!',
-							timeout: 2000,
-							callbacks: {
-								afterClose: function () {
-									notificationShowing = false;
-								}
-							}
-						}).show();
-						notificationShowing = true;
-					}
-					count++;
-					console.log('count 81: ' + count);
-				},
-				error: (xhr, status, error) => {
-					console.error('Error adding bookmark:', error);
-					new Noty({
-						theme: 'bootstrap-v4', layout: 'bottomRight',
-						type: 'error',
-						layout: 'bottomRight',
-						text: 'Error adding bookmark',
-						timeout: 2000
-					}).show();
-				},
-			});
-
-		}
+		$.ajax({
+			"url": url,
+			type: 'POST',
+			data: bookmark,
+			success: (response) => {
+				bookmark["questionid"] = "";
+				bookmark["userid"] = "";
+				console.log("questionid: " + bookmark["questionid"])
+				console.log('bookmark added');
+				$bookmarkIcon.removeClass('fa-regular').addClass('fa-solid');
+				$bookmarkIcon.attr('id', 'remove-bookmark');
+			},
+			error: (xhr, status, error) => {
+				console.error('Error adding bookmark:', error);
+			}
+		});
 	},
 
 
 	removeBookmark: function () {
-		console.log('removeBook');
 
 		var currentUrl = window.location.href;
 		var lastPart = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
 		var $questionid = parseInt(lastPart.match(/\d+$/)[0]);
 
-		console.log("questionid form web: " + $questionid);
-
 		$userJson = JSON.parse(localStorage.getItem("user"));
 		$userid = $userJson['user_id'];
 
 		var $bookmarkIcon = $('#remove-bookmark');
-
-		console.log('questionid: ', $questionid);
-		console.log('userid: ', $userid);
 
 		var bookmark = {
 			questionid: $questionid,
@@ -128,22 +92,9 @@ app.views.questionAnswerView = Backbone.View.extend({
 					console.log('bookmark removed');
 					$bookmarkIcon.removeClass('fa-solid').addClass('fa-regular'); // Change icon to regular
 					$bookmarkIcon.attr('id', 'add-bookmark');
-					new Noty({
-						theme: 'bootstrap-v4', layout: 'bottomRight',
-						type: 'warning',
-						text: 'Bookmark removed!',
-						timeout: 2000
-					}).show();
-
 				},
 				error: (xhr, status, error) => {
 					console.error('Error removing bookmark:', error);
-					new Noty({
-						theme: 'bootstrap-v4', layout: 'bottomRight',
-						type: 'error',
-						text: 'Error removing bookmark',
-						timeout: 2000
-					}).show();
 				}
 			});
 		}
@@ -157,9 +108,7 @@ app.views.questionAnswerView = Backbone.View.extend({
 		}
 
 		userJson = JSON.parse(localStorage.getItem("user"));
-
 		$questionid = this.model.attributes.questionid;
-
 		var url = this.model.url + 'upvote/' + $questionid;
 
 		if ($questionid != "" && $questionid != null) {
@@ -168,13 +117,9 @@ app.views.questionAnswerView = Backbone.View.extend({
 				type: 'GET',
 				success: (response) => {
 					console.log('upvoted');
-
 					var currentUpwotes = parseInt($('#question-upwotes').text());
-
 					$('#question-upwotes').text(currentUpwotes + 1);
-
 					this.$el.find('#upwote-question').data('clicked', true).css('pointer-events', 'none');
-
 				},
 				error: (xhr, status, error) => {
 					console.error('Error upvoting:', error);
