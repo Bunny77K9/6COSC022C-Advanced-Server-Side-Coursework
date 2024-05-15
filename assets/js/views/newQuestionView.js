@@ -12,8 +12,7 @@ app.views.newQuestionView = Backbone.View.extend({
 	},
 
 	events: {
-		'click #submit-question': 'submitQuestion',
-		"click #search-question": "questionSearch"
+		'click #submit-question': 'submitQuestion'
 	},
 
 	submitQuestion: function (e) {
@@ -23,7 +22,8 @@ app.views.newQuestionView = Backbone.View.extend({
 		var validateQuestionForm = validateQuestionAddForm();
 
 		if (!validateQuestionForm.title) {
-			new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+			new Noty({
+				theme: 'bootstrap-v4', layout: 'bottomRight',
 				type: 'error',
 				text: "Form validation error: " + validateQuestionForm,
 				timeout: 2000
@@ -46,7 +46,8 @@ app.views.newQuestionView = Backbone.View.extend({
 					this.model.save(this.model.attributes, {
 						"url": url,
 						success: (model, response) => {
-							new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+							new Noty({
+								theme: 'bootstrap-v4', layout: 'bottomRight',
 								type: 'success',
 								text: 'Question created successfully!',
 								timeout: 2000
@@ -66,7 +67,8 @@ app.views.newQuestionView = Backbone.View.extend({
 							app.appRouter.navigate("home", {trigger: true});
 						},
 						error: (model, response) => {
-							new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+							new Noty({
+								theme: 'bootstrap-v4', layout: 'bottomRight',
 								type: 'error',
 								text: 'Error adding question',
 								timeout: 2000
@@ -75,7 +77,8 @@ app.views.newQuestionView = Backbone.View.extend({
 					});
 				},
 				error: (xhr, status, error) => {
-					new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+					new Noty({
+						theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'error',
 						text: 'Error uploading image!',
 						timeout: 2000
@@ -83,51 +86,5 @@ app.views.newQuestionView = Backbone.View.extend({
 				}
 			});
 		}
-	},
-
-	questionSearch:
-		function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			var validateAnswer = validateSearchForm();
-			var searchValue = $("#srearch-question-input").val();
-
-			if (searchValue != "") {
-				app.user = new app.models.User(userJson);
-				app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
-
-				var url = app.homeView.collection.url + "search_questions/" + searchValue;
-				app.homeView.collection.fetch({
-					reset: true,
-					"url": url,
-					success: function (collection, response) {
-						app.homeView.render();
-					},
-					error: function (model, xhr, options) {
-						if (xhr.status == 204) {
-							app.homeView.render();
-						}
-					}
-				});
-			} else {
-				app.user = new app.models.User(userJson);
-				app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
-
-				var url = app.homeView.collection.url + "display_all_questions";
-
-				app.homeView.collection.fetch({
-					reset: true,
-					"url": url,
-					success: function (collection, response) {
-						app.homeView.render();
-					},
-					error: function (model, xhr, options) {
-						if (xhr.status == 404) {
-							app.homeView.render();
-						}
-					}
-				});
-			}
-		}
+	}
 })

@@ -23,6 +23,9 @@
 							</a>
 						</li>
 					</ul>
+					<a class="btn logout-btn" href="#logout" id="logout">
+						<i class="fa fa-sign-out me-2"></i>Log out
+					</a>
 				</div>
 			</div>
 			<div class="col-sm-10 px-4">

@@ -19,9 +19,8 @@ app.views.categoryView = Backbone.View.extend({
 	},
 
 	events: {
-		"click #ask-question-button": "newQuestion",
+		"click #ask-question": "newQuestion",
 		"click #search-category": "getQuestionsCategory",
-		"click #search-question": "questionSearch",
 	},
 
 	fetchCategories: function () {
@@ -116,52 +115,5 @@ app.views.categoryView = Backbone.View.extend({
 				}
 			});
 		}
-	},
-
-	questionSearch:
-		function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			var validateAnswer = validateSearchForm();
-			var searchValue = $("#srearch-question-input").val();
-
-			if (searchValue != "") {
-
-				app.user = new app.models.User(userJson);
-				app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
-
-				var url = app.homeView.collection.url + "search_questions/" + searchValue;
-				app.homeView.collection.fetch({
-					reset: true,
-					"url": url,
-					success: function (collection, response) {
-						app.homeView.render();
-					},
-					error: function (model, xhr, options) {
-						if (xhr.status == 404) {
-							app.homeView.render();
-						}
-					}
-				});
-			} else {
-				app.user = new app.models.User(userJson);
-				app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
-
-				var url = app.homeView.collection.url + "display_all_questions";
-
-				app.homeView.collection.fetch({
-					reset: true,
-					"url": url,
-					success: function (collection, response) {
-						app.homeView.render();
-					},
-					error: function (model, xhr, options) {
-						if (xhr.status == 404) {
-							app.homeView.render();
-						}
-					}
-				});
-			}
-		}
+	}
 })

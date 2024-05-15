@@ -102,7 +102,7 @@ function validateAnswerForm() {
 
 function validateSearchForm() {
 	var search = {
-		'search': $("input#srearch-question-input").val()
+		'search': $("input#search-question-input").val()
 	};
 	if (!search.search) {
 		return false;

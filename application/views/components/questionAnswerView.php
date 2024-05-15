@@ -8,7 +8,7 @@
 				<div class="d-flex flex-column sidebar">
 					<ul class="nav nav-pills flex-column mb-auto side-nav">
 						<li class="nav-item">
-							<a href="#" class="nav-link link-dark">
+							<a href="#" class="nav-link link-active">
 								<i class="fa-solid fa-house"></i><span class="side-title">Questions</span>
 							</a>
 						</li>
@@ -23,6 +23,9 @@
 							</a>
 						</li>
 					</ul>
+					<a class="btn logout-btn" href="#logout" id="logout">
+						<i class="fa fa-sign-out me-2"></i>Log out
+					</a>
 				</div>
 			</div>
 

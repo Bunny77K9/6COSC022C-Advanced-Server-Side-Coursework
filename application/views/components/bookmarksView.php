@@ -20,19 +20,20 @@
 							</a>
 						</li>
 						<li>
-							<a href="#home/bookmark/<%=user_id%>" class="nav-link" aria-current="page"
-							   style="color: #007bff; border-color: #007bff">
+							<a href="#home/bookmark/<%=user_id%>" class="nav-link link-active">
 								<i class="fa-solid fa-bookmark"></i><span class="side-title">Bookmarks</span>
 							</a>
-						</li>
 					</ul>
+					<a class="btn logout-btn" href="#logout" id="logout">
+						<i class="fa fa-sign-out me-2"></i>Log out
+					</a>
 				</div>
 			</div>
 			<div class="col-sm-10 px-4">
 				<div class="page-heading" id="question">
-					<div class="heading ">
-						<h1>Bookmarks</h1>
-						<button type="button" class="btn btn-outline-primary" id="ask-question-button">Ask Question
+					<div class="heading">
+						<h1 class="title">Bookmarks</h1>
+						<button type="button" class="btn btn-outline-primary ask-question-btn" id="ask-question">Ask Question
 						</button>
 					</div>
 					<hr>
