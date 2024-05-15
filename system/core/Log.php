@@ -68,7 +68,7 @@ class CI_Log {
 	 *
 	 * @var int
 	 */
-	protected $_threshold = 1;
+	protected $_threshold = 4;
 
 	/**
 	 * Array of threshold levels to log
@@ -125,7 +125,7 @@ class CI_Log {
 
 		isset(self::$func_overload) OR self::$func_overload = ( ! is_php('8.0') && extension_loaded('mbstring') && @ini_get('mbstring.func_overload'));
 
-		$this->_log_path = ($config['log_path'] !== '') ? $config['log_path'] : APPPATH.'logs/';
+		$this->_log_path = ($config['log_path'] !== '') ? $config['log_path'] : APPPATH.'/logs/';
 		$this->_file_ext = (isset($config['log_file_extension']) && $config['log_file_extension'] !== '')
 			? ltrim($config['log_file_extension'], '.') : 'php';
 

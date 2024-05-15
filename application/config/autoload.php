@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | 4. Helper files
 | 5. Custom config files
 | 6. Language files
-| 7. Models
+| 7. models
 |
 */
 
@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'session');
+$autoload['libraries'] = array('database','session','cart','pagination', 'form_validation', 'logger');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url','form','active','file');
 
 /*
 | -------------------------------------------------------------------
@@ -121,7 +121,7 @@ $autoload['language'] = array();
 
 /*
 | -------------------------------------------------------------------
-|  Auto-load Models
+|  Auto-load models
 | -------------------------------------------------------------------
 | Prototype:
 |
@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = array('usermodel');
