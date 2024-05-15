@@ -4,7 +4,7 @@ app.views.signupView = Backbone.View.extend({
 	el: ".container",
 
 	render: function () {
-		template = _.template($('#signup_template').html());
+		template = _.template($('#signup-template').html());
 		this.$el.html(template(this.model.attributes));
 	},
 

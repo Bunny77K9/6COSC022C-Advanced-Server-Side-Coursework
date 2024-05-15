@@ -1,4 +1,4 @@
-<script type="text/template" id="question_template">
+<script type="text/template" id="question-view-template">
 	<div class="question">
 		<h4 class="title">
 			<a href="#home/answerquestion/<%=questionid%>"><%=title%></a>

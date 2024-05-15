@@ -1,4 +1,4 @@
-<script type="text/template" id="signup_template">
+<script type="text/template" id="signup-template">
 	<div class="row no-gutters">
 		<div class="col-sm-8 mx-auto">
 			<h1 class="text-center">Dev Forum</h1>

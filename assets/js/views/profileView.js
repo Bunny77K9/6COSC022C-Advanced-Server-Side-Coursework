@@ -18,122 +18,6 @@ app.views.profileView = Backbone.View.extend({
 		'change #change-profile-picture-input': 'uploadImage',
 	},
 
-	changePassword: function () {
-		userJson = JSON.parse(localStorage.getItem("user"));
-		var user_id = userJson['user_id'];
-
-		validateChangePassword = validateChangePasswordForm();
-
-		if (!validateChangePassword.oldpassword, !validateChangePassword.newpassword, !validateChangePassword.confirmpassword) {
-			var userPass = {
-				'user_id': user_id,
-				'oldpassword': $("input#oldPassword").val(),
-				'newpassword': $("input#newPassword").val(),
-				'confirmpassword': $("input#confirmPassword").val()
-			};
-
-			var url = this.model.url + "change_password";
-
-			$.ajax({
-				url: url,
-				type: 'POST',
-				data: userPass,
-				success: (response) => {
-					if (response.status === true) {
-						new Noty({
-							theme: 'bootstrap-v4', layout: 'bottomRight',
-							type: 'success',
-							text: 'Password changed successfully!',
-							timeout: 2000
-						}).show();
-						$('#passwordChangeModal').modal('hide');
-					} else if (response.status === false) {
-						new Noty({
-							theme: 'bootstrap-v4', layout: 'bottomRight',
-							type: 'error',
-							text: 'Old password is incorrect',
-							timeout: 2000
-						}).show();
-					}
-				},
-				error: function (response) {
-					new Noty({
-						theme: 'bootstrap-v4', layout: 'bottomRight',
-						type: 'error',
-						text: 'Password change failed!',
-						timeout: 2000
-					}).show();
-				}
-			})
-		} else {
-			new Noty({
-				theme: 'bootstrap-v4', layout: 'bottomRight',
-				type: 'error',
-				text: 'Form validation error:' + validateChangePassword,
-				timeout: 2000
-			}).show();
-		}
-		
-		// $oldPassword = $("input#oldPassword").val();
-		// $newPassword = $("input#newPassword").val();
-		// $confirmPassword = $("input#confirmPassword").val();
-		//
-		// if ($newPassword != $confirmPassword) {
-		// 	new Noty({
-		// 		theme: 'bootstrap-v4', layout: 'bottomRight',
-		// 		type: 'error',
-		// 		text: 'New password and confirm password do not match',
-		// 		timeout: 2000
-		// 	}).show();
-		// } else {
-		// 	var userPass = {
-		// 		'user_id': user_id,
-		// 		'oldpassword': $("input#oldPassword").val(),
-		// 		'newpassword': $("input#newPassword").val(),
-		// 		'confirmpassword': $("input#confirmPassword").val()
-		// 	};
-		//
-		// 	var url = this.model.url + "change_password";
-		//
-		// 	$.ajax({
-		// 		url: url,
-		// 		type: 'POST',
-		// 		data: userPass,
-		// 		success: (response) => {
-		// 			if (response.status === true) {
-		// 				new Noty({
-		// 					theme: 'bootstrap-v4', layout: 'bottomRight',
-		// 					type: 'success',
-		// 					text: 'Password changed successfully!',
-		// 					timeout: 2000
-		// 				}).show();
-		// 				$('#passwordChangeModal').modal('hide');
-		// 			} else if (response.status === false) {
-		// 				new Noty({
-		// 					theme: 'bootstrap-v4', layout: 'bottomRight',
-		// 					type: 'error',
-		// 					text: 'Old password is incorrect',
-		// 					timeout: 2000
-		// 				}).show();
-		// 			}
-		// 		},
-		// 		error: function (response) {
-		// 			new Noty({
-		// 				theme: 'bootstrap-v4', layout: 'bottomRight',
-		// 				type: 'error',
-		// 				text: 'Password change failed!',
-		// 				timeout: 2000
-		// 			}).show();
-		// 		}
-		//
-		// 	})
-		//
-		// }
-		// $("input#oldPassword").val("");
-		// $("input#newPassword").val(""),
-		// 	$("input#confirmPassword").val("");
-	},
-
 	changeProfilePicture: function () {
 		$('#change-profile-picture-input').click();
 	},
@@ -245,4 +129,67 @@ app.views.profileView = Backbone.View.extend({
 			}).show();
 		}
 	},
+
+	changePassword: function () {
+		userJson = JSON.parse(localStorage.getItem("user"));
+		var user_id = userJson['user_id'];
+
+		var validateChangePassword = validateChangePasswordForm();
+
+		if (!validateChangePassword.oldpassword || !validateChangePassword.newpassword || !validateChangePassword.confirmpassword) {
+			new Noty({
+				theme: 'bootstrap-v4', layout: 'bottomRight',
+				type: 'error',
+				text: 'Form validation error:' + validateChangePassword,
+				timeout: 2000
+			}).show();
+		} else {
+			var userPass = {
+				'user_id': user_id,
+				'oldpassword': $("input#oldPassword").val(),
+				'newpassword': $("input#newPassword").val(),
+				'confirmpassword': $("input#confirmPassword").val()
+			};
+
+			var url = this.model.url + "change_password";
+
+			$.ajax({
+				url: url,
+				type: 'POST',
+				data: userPass,
+				success: (response) => {
+					if (response.status === true) {
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
+							type: 'success',
+							text: 'Password changed successfully!',
+							timeout: 2000
+						}).show();
+						$('#passwordChangeModal').modal('hide');
+
+						$("input#oldPassword").val("");
+						$("input#newPassword").val("");
+						$("input#confirmPassword").val("");
+
+					} else if (response.status === false) {
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
+							type: 'error',
+							text: 'Please check the details and try again!',
+							timeout: 2000
+						}).show();
+					}
+				},
+				error: function (response) {
+					new Noty({
+						theme: 'bootstrap-v4', layout: 'bottomRight',
+						type: 'error',
+						text: 'Password change failed!',
+						timeout: 2000
+					}).show();
+				}
+			})
+		}
+	},
+
 })

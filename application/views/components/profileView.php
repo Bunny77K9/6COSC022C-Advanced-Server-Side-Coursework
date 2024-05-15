@@ -209,7 +209,7 @@
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
 									</button>
 									<button type="button" class="btn btn-primary" id="submit-change-password-button">Save
-										password
+										Password
 									</button>
 								</div>
 							</div>
@@ -259,7 +259,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
 									</button>
-									<button type="button" class="btn btn-primary" id="edit-profile">Save changes
+									<button type="button" class="btn btn-primary" id="edit-profile">Save Changes
 									</button>
 								</div>
 							</div>
