@@ -52,8 +52,6 @@ app.views.questionAnswerView = Backbone.View.extend({
 			success: (response) => {
 				bookmark["questionid"] = "";
 				bookmark["userid"] = "";
-				console.log("questionid: " + bookmark["questionid"])
-				console.log('bookmark added');
 				$bookmarkIcon.removeClass('fa-regular').addClass('fa-solid');
 				$bookmarkIcon.attr('id', 'remove-bookmark');
 			},
@@ -89,8 +87,7 @@ app.views.questionAnswerView = Backbone.View.extend({
 				success: (response) => {
 					bookmark["questionid"] = "";
 					bookmark["userid"] = "";
-					console.log('bookmark removed');
-					$bookmarkIcon.removeClass('fa-solid').addClass('fa-regular'); // Change icon to regular
+					$bookmarkIcon.removeClass('fa-solid').addClass('fa-regular');
 					$bookmarkIcon.attr('id', 'add-bookmark');
 				},
 				error: (xhr, status, error) => {
@@ -103,7 +100,6 @@ app.views.questionAnswerView = Backbone.View.extend({
 	upvoteQuestion: function () {
 
 		if ($(this).data('clicked')) {
-			console.log('Button already clicked.');
 			return;
 		}
 
@@ -116,13 +112,11 @@ app.views.questionAnswerView = Backbone.View.extend({
 				"url": url,
 				type: 'GET',
 				success: (response) => {
-					console.log('upvoted');
 					var currentUpwotes = parseInt($('#question-upwotes').text());
 					$('#question-upwotes').text(currentUpwotes + 1);
 					this.$el.find('#upwote-question').data('clicked', true).css('pointer-events', 'none');
 				},
 				error: (xhr, status, error) => {
-					console.error('Error upvoting:', error);
 					new Noty({
 						theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'error',
@@ -145,12 +139,10 @@ app.views.questionAnswerView = Backbone.View.extend({
 	downvoteQuestion: function () {
 
 		if ($(this).data('clicked')) {
-			console.log('Button already clicked.');
 			return;
 		}
 
 		userJson = JSON.parse(localStorage.getItem("user"));
-
 		$questionid = this.model.attributes.questionid;
 
 		var url = this.model.url + 'downvote/' + $questionid;
@@ -160,16 +152,11 @@ app.views.questionAnswerView = Backbone.View.extend({
 				"url": url,
 				type: 'GET',
 				success: (response) => {
-					console.log('downvote');
-
 					var currentUpwotes = parseInt($('#question-upwotes').text());
 					$('#question-upwotes').text(currentUpwotes - 1);
-
 					this.$el.find('#downwote-question').data('clicked', true).css('pointer-events', 'none');
-
 				},
 				error: (xhr, status, error) => {
-					console.error('Error downvote:', error);
 					new Noty({
 						theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'error',
@@ -178,7 +165,6 @@ app.views.questionAnswerView = Backbone.View.extend({
 					}).show();
 				}
 			});
-
 		} else {
 			new Noty({
 				theme: 'bootstrap-v4', layout: 'bottomRight',
@@ -192,18 +178,13 @@ app.views.questionAnswerView = Backbone.View.extend({
 	upvoteAnswer: function (event) {
 
 		var $clickedButton = $(event.currentTarget);
-
 		var $answerid = $clickedButton.data('answer-id');
 
 		if ($(this).data('clicked')) {
-			console.log('Button already clicked.');
 			return;
 		}
 
 		userJson = JSON.parse(localStorage.getItem("user"));
-
-		console.log('answerid: ', $answerid);
-
 		var url = this.model.urlAns + 'upvote/' + $answerid;
 
 		if ($answerid != "" && $answerid != null) {
@@ -211,18 +192,12 @@ app.views.questionAnswerView = Backbone.View.extend({
 				"url": url,
 				type: 'GET',
 				success: (response) => {
-					console.log('upvoted');
-
 					var currentUpvotesElement = $clickedButton.siblings('.upwotes-count');
 					var currentUpwotes = parseInt(currentUpvotesElement.text());
-
 					currentUpvotesElement.text(currentUpwotes + 1);
-
 					$clickedButton.data('clicked', true).css('pointer-events', 'none');
-
 				},
 				error: (xhr, status, error) => {
-					console.error('Error upvoting:', error);
 					new Noty({
 						theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'error',
@@ -243,20 +218,14 @@ app.views.questionAnswerView = Backbone.View.extend({
 	},
 
 	downvoteAnswer: function (event) {
-
 		var $clickedButton = $(event.currentTarget);
-
 		var $answerid = $clickedButton.data('answer-id');
 
 		if ($(this).data('clicked')) {
-			console.log('Button already clicked.');
 			return;
 		}
 
 		userJson = JSON.parse(localStorage.getItem("user"));
-
-		console.log('answerid: ', $answerid);
-
 		var url = this.model.urlAns + 'downvote/' + $answerid;
 
 		if ($answerid != "" && $answerid != null) {
@@ -264,18 +233,12 @@ app.views.questionAnswerView = Backbone.View.extend({
 				"url": url,
 				type: 'GET',
 				success: (response) => {
-					console.log('downvote');
-
 					var currentUpvotesElement = $clickedButton.siblings('.upwotes-count');
 					var currentUpwotes = parseInt(currentUpvotesElement.text());
-
 					currentUpvotesElement.text(currentUpwotes - 1);
-
 					$clickedButton.data('clicked', true).css('pointer-events', 'none');
-
 				},
 				error: (xhr, status, error) => {
-					console.error('Error downvote:', error);
 					new Noty({
 						theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'error',
@@ -300,17 +263,12 @@ app.views.questionAnswerView = Backbone.View.extend({
 		e.preventDefault();
 		e.stopPropagation();
 
-		console.log('submitting answer');
-
 		var validateAnswer = validateAnswerForm();
 
 		if (validateAnswer.answer) {
-			console.log('answer is valid');
 			var formData = new FormData();
 			var imageFIle = $('#answerImageUpload')[0].files[0];
 			formData.append('image', imageFIle);
-			console.log(this.model.urlAns);
-
 			$.ajax({
 				url: this.model.urlAns + 'ans_image',
 				type: 'POST',
@@ -318,19 +276,13 @@ app.views.questionAnswerView = Backbone.View.extend({
 				processData: false,
 				contentType: false,
 				success: (response) => {
-					console.log('image uploaded', response);
 					validateAnswer.answerimage = response.imagePath;
 					this.model.set(validateAnswer);
-
 					$questionid = this.model.attributes.questionid;
-					console.log('questionid: ', $questionid);
-
-					console.log('model asda: ', this.model.attributes);
 					var url = this.model.urlAns + "add_answer";
 					this.model.save(this.model.attributes, {
 						"url": url,
 						success: (model, response) => {
-							console.log('answer submitted');
 							new Noty({
 								theme: 'bootstrap-v4', layout: 'bottomRight',
 								type: 'success',
@@ -339,18 +291,15 @@ app.views.questionAnswerView = Backbone.View.extend({
 							}).show();
 
 							$userJson = JSON.parse(localStorage.getItem("user"));
-							console.log('userJson: ', $userJson);
 							$userJson['answerquestioncnt'] = parseInt($userJson['answerquestioncnt']) + 1;
 
 							localStorage.setItem("user", JSON.stringify($userJson));
 
 							this.collection.add(model);
-							console.log('model: ', model);
 							var newAnswerView = new app.views.answerView({model: model});
 							newAnswerView.render();
 						},
 						error: (model, response) => {
-							console.log('error in submitting answer');
 							new Noty({
 								theme: 'bootstrap-v4', layout: 'bottomRight',
 								type: 'error',
@@ -361,7 +310,6 @@ app.views.questionAnswerView = Backbone.View.extend({
 					})
 				},
 				error: (xhr, status, error) => {
-					console.error('Error uploading image:', error);
 					new Noty({
 						theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'error',
@@ -382,7 +330,6 @@ app.views.questionAnswerView = Backbone.View.extend({
 					text: 'Form validation error: ' + validateAnswer,
 					timeout: 2000
 				}).show();
-				console.log('answer is not valid');
 			}, 1500);
 		}
 	}

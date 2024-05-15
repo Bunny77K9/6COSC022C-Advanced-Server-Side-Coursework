@@ -18,17 +18,42 @@ function validateLoginForm() {
 
 function validateRegisterForm() {
 	var user = {
-		'firstname': $("input#regFirstname").val(),
-		'lastname': $("input#regLastname").val(),
-		'username': $("input#regUsername").val(),
-		'password': $("input#regPassword").val(),
-		'email': $("input#regEmail").val(),
-		'occupation': $("input#regOccupation").val(),
+		'firstname': $("input#signupFirstname").val(),
+		'lastname': $("input#signupLastname").val(),
+		'username': $("input#signupUsername").val(),
+		'password': $("input#signupPassword").val(),
+		'email': $("input#signupEmail").val(),
+		'occupation': $("input#signupOccupation").val(),
 	};
-	if (!user.firstname || !user.lastname || !user.username || !user.password || !user.occupation || !user.email) {
-		return false;
+
+	var registerError1 = 'First name field is empty';
+	var registerError2 = 'Last name field is empty';
+	var registerError3 = 'Username field is empty';
+	var registerError4 = 'Password field is empty';
+	var registerError5 = 'Email field is empty';
+	var registerError6 = 'Title field is empty';
+
+	if (!user.firstname) {
+		return registerError1;
 	}
-	return user;
+	else if (!user.lastname) {
+		return registerError2;
+	}
+	else if (!user.username) {
+		return registerError3;
+	}
+	else if (!user.password) {
+		return registerError4;
+	}
+	else if (!user.email) {
+		return registerError5;
+	}
+	else if (!user.occupation) {
+		return registerError6;
+	}
+	else{
+		return user;
+	}
 }
 
 function validateUpdateUserProfileForm() {
