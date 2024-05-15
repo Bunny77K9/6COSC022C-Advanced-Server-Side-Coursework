@@ -1,4 +1,4 @@
-<script type="text/template" id="category_template">
+<script type="text/template" id="category-template">
 
 	<div id="nav-bar-container"></div>
 	<div class="container">

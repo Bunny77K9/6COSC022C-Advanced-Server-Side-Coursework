@@ -7,7 +7,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 		"signup": "signup",
 		"home": "home",
 		"home/category": "category",
-		"home/askquestion": "askquestion",
+		"home/newquestion": "newquestion",
 		"home/answerquestion/:questionid": "answerquestion",
 		"home/bookmark/:userid": "bookmark",
 		"home/user/:userid": "user",
@@ -174,8 +174,8 @@ app.routers.AppRouter = Backbone.Router.extend({
 		}
 	},
 
-	askquestion: function (){
-		console.log("askQuestion route");
+	newquestion: function (){
+		console.log("newquestion route");
 		userJson = JSON.parse(localStorage.getItem("user"));
 		console.log("user"+userJson);
 		if(userJson != null){

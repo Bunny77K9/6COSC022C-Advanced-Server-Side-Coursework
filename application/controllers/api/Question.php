@@ -122,9 +122,9 @@ class Question extends REST_Controller{
 		}
 	}
 
-	// displayAllCategories
+	// display_all_categories
 
-	public function displayAllCategories_get(){
+	public function display_all_categories_get(){
 		$categories = $this->QuestionModel->getAllCategories();
 		if($categories) {
 			$this->response($categories, REST_Controller::HTTP_OK);
