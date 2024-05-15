@@ -142,9 +142,9 @@ class User extends REST_Controller
 	 * @author Nandun Dias
 	 *
 	 */
-	public function ask_question_image_post()
+	public function new_question_image_post()
 	{
-		log_message('debug', 'ask_question_image_post() method call');
+		log_message('debug', 'new_question_image_post() method call');
 
 		// Check if an image file is uploaded
 		if (!empty($_FILES['image']['name'])) {
@@ -186,7 +186,7 @@ class User extends REST_Controller
 		}
 	}
 
-//	public function ask_question_image_post() {
+//	public function new_question_image_post() {
 //		// Check if file is uploaded
 //		if (!empty($_FILES['image']['name'])) {
 //			// Define upload directory

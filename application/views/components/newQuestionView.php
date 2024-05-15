@@ -1,4 +1,4 @@
-<script type="text/template" id="add_question_template">
+<script type="text/template" id="new-question-template">
 
 	<div id="navbar-container">
 
@@ -101,7 +101,7 @@
 							the <a href="#">code of conduct</a></label>
 					</div>
 
-					<button type="submit" id="submit_question" class="btn btn-primary">Submit
+					<button type="submit" id="submit-question" class="btn btn-primary">Submit
 						Question
 					</button>
 				</div>
@@ -165,5 +165,5 @@
 	<!--		</select>-->
 	<!--	</div>-->
 	<!---->
-	<!--	<button type="submit" id="submit_question" class="btn btn-primary question-subbtn">Submit Question</button>-->
+	<!--	<button type="submit" id="submit-question" class="btn btn-primary question-subbtn">Submit Question</button>-->
 </script>
