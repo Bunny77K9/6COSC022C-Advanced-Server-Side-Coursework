@@ -1,4 +1,4 @@
-<script type="text/template" id="login_template">
+<script type="text/template" id="login-template">
 	<div class="login-div">
 		<div class="row no-gutters">
 			<div class="col-sm-6 mx-auto">
@@ -7,7 +7,7 @@
 					<h2 class="card-title text-center">Log in</h2>
 					<form class="form-main">
 
-						<p class="error text-center" id="errLog"></p>
+						<p class="error text-center" id="login-error"></p>
 
 						<div class="mb-3">
 							<input type="text" class="form-control" placeholder="Email or username"
@@ -20,20 +20,20 @@
 								   required name="password">
 						</div>
 
-						<div class="forget-password mb-4 text-center">
-							<a href="#" data-bs-toggle="modal" data-bs-target="#forgetPasswordModal">
+						<div class="reset-password mb-4 text-center">
+							<a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
 								Forget Password</a>
 						</div>
 
-						<button class="btn btn-primary mb-3 login-button" id="login_button" type="submit">Log in
+						<button class="btn btn-primary mb-3 login-button" id="login-button" type="submit">Log in
 						</button>
 
 						<p class="auth-change text-center" style="margin-top: 20px">Don't have an account? <a
 								href="#signup">Sign up</a></p>
 					</form>
 
-					<!-- Forget Password Modal -->
-					<div class="modal fade" id="forgetPasswordModal" tabindex="-1" aria-labelledby="passwordModalLabel"
+					<!-- Reset Password Modal -->
+					<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="passwordModalLabel"
 						 aria-hidden="true">
 						<!--<div class="modal-dialog modal-dialog-centered">-->
 						<div class="modal-dialog">
@@ -62,7 +62,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
 									</button>
-									<button type="button" class="btn btn-primary" id="forgetPasswordChange">Save
+									<button type="button" class="btn btn-primary" id="reset-password-button">Save
 										changes
 									</button>
 								</div>

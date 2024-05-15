@@ -850,10 +850,10 @@ class User extends REST_Controller
 	 * @author NandunDias
 	 *
 	 */
-	public function forget_password_post()
+	public function reset_password_post()
 	{
 		// Log the start of password reset process
-		log_message('debug', 'forget_password_post() method call');
+		log_message('debug', 'reset_password_post() method call');
 
 		// Retrieve and sanitize input data
 		$username = strip_tags($this->post('username'));
@@ -868,8 +868,8 @@ class User extends REST_Controller
 			// Log the received input data
 			log_message('info', 'Received input data: username - ' . $username);
 
-			// Call the forgetPassword method of the UserModel to reset the password
-			$updateUser = $this->UserModel->forgetPassword($username, $newpassword);
+			// Call the resetPassword method of the UserModel to reset the password
+			$updateUser = $this->UserModel->resetPassword($username, $newpassword);
 			if ($updateUser !== false) {
 				// Log the successful password reset
 				log_message('info', 'User password has been updated successfully.');
@@ -893,8 +893,8 @@ class User extends REST_Controller
 		}
 	}
 
-//	public function forget_password_post(){
-//		log_message('debug', 'forget_password_post() method call';
+//	public function reset_password_post(){
+//		log_message('debug', 'reset_password_post() method call';
 ////		$_POST = json_decode(file_get_contents("php://input"), true);
 //
 //		$username = strip_tags($this->post('username'));
@@ -905,7 +905,7 @@ class User extends REST_Controller
 //			$newpassword = sha1($newpassword);
 //
 //			log_message('info', 'Received input data: username - ' . $username );
-//			$updateUser = $this->UserModel->forgetPassword($username, $newpassword);
+//			$updateUser = $this->UserModel->resetPassword($username, $newpassword);
 //			if($updateUser !== false) {
 //				log_message('info', 'User password has been updated successfully.');
 //				// User was updated successfully

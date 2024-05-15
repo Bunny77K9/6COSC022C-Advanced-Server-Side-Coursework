@@ -79,7 +79,7 @@ class UserModel extends CI_Model{
 		}
 	}
 
-	public function forgetPassword($username, $newpassword){
+	public function resetPassword($username, $newpassword){
 		$this->db->select('password');
 		$this->db->where("(username = '$username' OR email = '$username')");
 		$existingPasswordQuery = $this->db->get('users');

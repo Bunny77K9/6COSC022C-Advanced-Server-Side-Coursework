@@ -4,17 +4,16 @@ app.views.loginView = Backbone.View.extend({
     el: ".container",
 
     render: function () {
-        template = _.template($('#login_template').html());
+        template = _.template($('#login-template').html());
         this.$el.html(template(this.model.attributes));
-		console.log("login template");
-        // $("#logout").hide();
-    },
-    events: {
-        "click #login_button": "do_login",
-		"click #forgetPasswordChange": "forgetPasswordChange"
     },
 
-    do_login: function (e) {
+    events: {
+        "click #login-button": "login",
+		"click #reset-password-button": "resetPassword"
+    },
+
+    login: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -22,14 +21,13 @@ app.views.loginView = Backbone.View.extend({
 		if (!validateForm) {
 			new Noty({ theme: 'bootstrap-v4', layout: 'bottomCenter',
 				type: 'error',
-				text: 'Please Enter the Cridential',
+				text: 'Please enter the login cridentials!',
 				timeout: 2000
 			}).show();
-			$("#errLog").html("Please fill the form");
+			$("#login-error").html("Please enter the login cridentials!!");
 		}else {
 			this.model.set(validateForm);
 			var url = this.model.url + "signin";
-			console.log("url: ", url);
 			this.model.save(this.model.attributes, {
 				"url": url,
 				success: function (model, response) {
@@ -40,29 +38,23 @@ app.views.loginView = Backbone.View.extend({
 					}).show();
 					$("#logout").show();
 					localStorage.setItem('user', JSON.stringify(model));
-					console.log("Login Done");
 					app.appRouter.navigate("home", {trigger: true});
 				},
 				error:function (model,xhr) {
 					if(xhr.statsu=400){
-						$("#errLog").html("Username or Password Incorrect");
+						$("#login-error").html("Username or Password Incorrect");
 						new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
 							type: 'error',
-							text: 'Username or Password Incorrect',
+							text: 'Username or Password is Incorrect',
 							timeout: 2000
 						}).show();
 					}
 				}
 			});
-			console.log("detils has been filled");
 		}
-        console.log("click login");
     },
 
-	forgetPasswordChange: function (){
-		console.log("forgetPasswordChange");
-		// userJson = JSON.parse(localStorage.getItem("user"));
-		// var user_id = userJson['user_id'];
+	resetPassword: function (){
 
 		$username = $("input#username").val();
 		$newPassword = $("input#newPassword").val();
@@ -81,21 +73,20 @@ app.views.loginView = Backbone.View.extend({
 				'confirmpassword': $confirmPassword
 			};
 
-			var url = this.model.url + "forget_password";
+			var url = this.model.url + "reset_password";
 
 			$.ajax({
 				url: url,
 				type: 'POST',
 				data: userPass,
 				success: (response) =>{
-					console.log("response", response);
 					if(response.status === true){
 						new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
 							type: 'success',
-							text: 'Password changed successfully',
+							text: 'Password reset successful!',
 							timeout: 2000
 						}).show();
-						$('#forgetPasswordModel').modal('hide');
+						$('#resetPasswordModal').modal('hide');
 					}else if(response.status === false){
 						new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
 							type: 'error',
@@ -105,10 +96,9 @@ app.views.loginView = Backbone.View.extend({
 					}
 				},
 				error: function(response){
-					console.error("Error:", response);
 					new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'error',
-						text: 'Failed to update password. Please try again.',
+						text: 'Password reset failed!',
 						timeout: 2000
 					}).show();
 				}
