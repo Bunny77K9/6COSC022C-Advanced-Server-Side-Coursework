@@ -71,7 +71,7 @@
 
 									<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
 										 style="height: 20px;">
-										<% let askCnt = 13 % 10; %>
+										<% let askCnt = askquestioncnt % 10; %>
 										<% for (let i = 0; i < askCnt; i++) { %>
 										<div class="progress-bar bg-warning"
 											 style="width: 10%;"></div>
