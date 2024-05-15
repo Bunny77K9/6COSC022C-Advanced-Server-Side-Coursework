@@ -33,7 +33,7 @@ function validateRegisterForm() {
 
 function validateUpdateUserProfileForm() {
 	var userImg = {
-		'userimage': $("input#upload_image_input")[0].files[0]
+		'userimage': $("input#change-profile-picture-input")[0].files[0]
 	};
 
 	return userImg;

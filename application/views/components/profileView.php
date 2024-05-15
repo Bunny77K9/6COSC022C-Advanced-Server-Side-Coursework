@@ -1,4 +1,4 @@
-<script type="text/template" id="user_template">
+<script type="text/template" id="profile-template">
 
 	<div id="navbar-container"></div>
 
@@ -55,14 +55,14 @@
 											data-bs-target="#editUserModal"><i
 											class="fa-solid fa-pen-to-square"></i> Edit
 									</button>
-									<button type="button" class="btn btn-outline-primary" id="edit_userchangedp_btn"><i
+									<button type="button" class="btn btn-outline-primary" id="change-profile-picture"><i
 											class="fa-solid fa-user"></i> Change Profile Pic
 									</button>
 									<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
 											data-bs-target="#passwordChangeModal"><i
 											class="fa-solid fa-lock"></i> Change Password
 									</button>
-									<input type="file" id="upload_image_input" style="display: none;" accept="image/*">
+									<input type="file" id="change-profile-picture-input" style="display: none;" accept="image/*">
 								</div>
 
 								<!-- Progress Bar Section -->
@@ -209,7 +209,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
 									</button>
-									<button type="button" class="btn btn-primary" id="submitPasswordChange">Save
+									<button type="button" class="btn btn-primary" id="submit-change-password-button">Save
 										password
 									</button>
 								</div>
@@ -260,7 +260,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
 									</button>
-									<button type="button" class="btn btn-primary" id="edit_userdetails_btn">Save changes
+									<button type="button" class="btn btn-primary" id="edit-profile">Save changes
 									</button>
 								</div>
 							</div>
