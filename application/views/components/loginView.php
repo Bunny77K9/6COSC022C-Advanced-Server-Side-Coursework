@@ -35,7 +35,6 @@
 					<!-- Reset Password Modal -->
 					<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="passwordModalLabel"
 						 aria-hidden="true">
-						<!--<div class="modal-dialog modal-dialog-centered">-->
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">

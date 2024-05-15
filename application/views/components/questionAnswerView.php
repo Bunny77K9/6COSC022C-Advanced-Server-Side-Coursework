@@ -1,6 +1,6 @@
 <script type="text/template" id="question-answer-template">
 
-	<div id="nav-bar-container"></div>
+	<div id="navbar-container"></div>
 
 	<div class="container">
 		<div class="row" style="margin-top: 70px">

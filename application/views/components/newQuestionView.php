@@ -1,6 +1,6 @@
 <script type="text/template" id="add_question_template">
 
-	<div id="nav-bar-container">
+	<div id="navbar-container">
 
 	</div>
 

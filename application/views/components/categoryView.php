@@ -1,6 +1,6 @@
 <script type="text/template" id="category-template">
 
-	<div id="nav-bar-container"></div>
+	<div id="navbar-container"></div>
 	<div class="container">
 		<div class="row" style="margin-top: 70px">
 			<div class="col-sm-2 d-flex justify-content-center" style="border-right: 1px solid #c9c9c9;">

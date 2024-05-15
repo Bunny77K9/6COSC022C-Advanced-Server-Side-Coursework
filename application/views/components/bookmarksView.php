@@ -1,6 +1,6 @@
 <script type="text/template" id="bookmark-template">
 
-	<div id="nav-bar-container">
+	<div id="navbar-container">
 
 	</div>
 

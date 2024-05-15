@@ -1,4 +1,4 @@
-<script type="text/template" id="nav-bar-template">
+<script type="text/template" id="navbar-template">
 	<div class="header" style="position:fixed;top:0;left:0;width:100%; z-index: 1">
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 			<div class="container-fluid">
