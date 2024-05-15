@@ -73,14 +73,14 @@ class QuestionModel extends CI_Model{
 		}
 	}
 
-	public function getSearchQuestions($searchWord) {
+	public function getSearchQuestions($searchValue) {
 		$this->db->distinct();
 		$this->db->select('Questions.questionid, Questions.title, Questions.description, Questions.expectation');
-		$this->db->like('Questions.title', $searchWord);
-		$this->db->or_like('Questions.description', $searchWord);
-		$this->db->or_like('Questions.expectation', $searchWord);
+		$this->db->like('Questions.title', $searchValue);
+		$this->db->or_like('Questions.description', $searchValue);
+		$this->db->or_like('Questions.expectation', $searchValue);
 		$this->db->join('Tags', 'Questions.questionid = Tags.questionid', 'left');
-		$this->db->or_like('Tags.tags', $searchWord);
+		$this->db->or_like('Tags.tags', $searchValue);
 		$this->db->group_by('Questions.questionid');
 
 		$question = $this->db->get("Questions");

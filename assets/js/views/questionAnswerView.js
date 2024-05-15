@@ -346,7 +346,6 @@ app.views.questionAnswerView = Backbone.View.extend({
 
 							this.collection.add(model);
 							console.log('model: ', model);
-							// Create and render a new view for the added answer
 							var newAnswerView = new app.views.answerView({model: model});
 							newAnswerView.render();
 						},

@@ -114,7 +114,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 
 			console.log("user: "+ app.user);
 
-			var url = app.categoryView.collection.url + "displayAllQuestions";
+			var url = app.categoryView.collection.url + "display_all_questions";
 			// console.log("url: "+ url);
 			app.categoryView.collection.fetch({
 				reset: true,
@@ -150,7 +150,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 			// Render the home view and fetch questions
 			app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.homeView.collection.url + "displayAllQuestions";
+			var url = app.homeView.collection.url + "display_all_questions";
 			// console.log("url: "+ url);
 			app.homeView.collection.fetch({
 				reset: true,
@@ -198,7 +198,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 		if(userJson != null){
 			app.user = new app.models.User(userJson);
 
-			var url = app.user.urlAskQuestion + "displayAllQuestions/" + questionid;
+			var url = app.user.urlAskQuestion + "display_all_questions/" + questionid;
 
 			app.user.fetch({
 				"url": url,

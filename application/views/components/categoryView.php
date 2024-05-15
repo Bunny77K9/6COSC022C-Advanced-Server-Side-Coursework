@@ -29,7 +29,7 @@
 				<div class="page-heading" id="question">
 					<div class="heading">
 						<h1>Category</h1>
-						<button type="button" class="btn btn-outline-primary" id="ask_question_btn">Ask Question
+						<button type="button" class="btn btn-outline-primary" id="ask-question-button">Ask Question
 						</button>
 					</div>
 					<hr>

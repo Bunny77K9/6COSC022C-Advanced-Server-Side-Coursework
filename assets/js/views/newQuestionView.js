@@ -16,7 +16,7 @@ app.views.newQuestionView = Backbone.View.extend({
 
 	events: {
 		'click #submit_question': 'submitquestion',
-		"click #homesearch": "home_search"
+		"click #search-question": "questionSearch"
 	},
 	submitquestion: function (e) {
 		e.preventDefault();
@@ -107,7 +107,7 @@ app.views.newQuestionView = Backbone.View.extend({
 		// $('#imageUpload').val('');
 	},
 
-	home_search:
+	questionSearch:
 		function (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -115,11 +115,11 @@ app.views.newQuestionView = Backbone.View.extend({
 			var validateAnswer = validateSearchForm();
 
 			// var search = {
-			// 	'search': $("input#searchHome").val()
+			// 	'search': $("input#srearch-question-input").val()
 			// };
-			var searchWord = $("#searchHome").val();
+			var searchValue = $("#srearch-question-input").val();
 
-			if (searchWord != "") {
+			if (searchValue != "") {
 				console.log('searching')
 
 				app.user = new app.models.User(userJson);
@@ -127,7 +127,7 @@ app.views.newQuestionView = Backbone.View.extend({
 				// app.homeView = new app.views.homeView();
 				app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
 
-				var url = app.homeView.collection.url + "displaySearchQuestions/" + searchWord;
+				var url = app.homeView.collection.url + "search_questions/" + searchValue;
 				console.log("url: " + url);
 				app.homeView.collection.fetch({
 					reset: true,
@@ -151,7 +151,7 @@ app.views.newQuestionView = Backbone.View.extend({
 				// app.homeView = new app.views.homeView();
 				app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
 
-				var url = app.homeView.collection.url + "displayAllQuestions";
+				var url = app.homeView.collection.url + "display_all_questions";
 				// console.log("url: "+ url);
 				app.homeView.collection.fetch({
 					reset: true,
@@ -172,5 +172,4 @@ app.views.newQuestionView = Backbone.View.extend({
 
 			// app.appRouter.navigate("home/search/"+search, {trigger: true});
 		}
-
 })

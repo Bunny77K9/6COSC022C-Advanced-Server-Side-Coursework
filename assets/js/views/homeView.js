@@ -18,11 +18,11 @@ app.views.homeView = Backbone.View.extend({
 		})
 	},
 	events: {
-		"click #ask_question_btn": "ask_question",
-		"click #homesearch": "home_search",
+		"click #ask-question-button": "newQuestion",
+		"click #search-question": "questionSearch",
 	},
 
-	ask_question: function (e) {
+	newQuestion: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -30,18 +30,18 @@ app.views.homeView = Backbone.View.extend({
 		app.appRouter.navigate("home/askquestion", {trigger: true});
 	},
 
-	home_search: function (e) {
+	questionSearch: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
 		var validateAnswer = validateSearchForm();
 
 		// var search = {
-		// 	'search': $("input#searchHome").val()
+		// 	'search': $("input#srearch-question-input").val()
 		// };
-		var searchWord = $("#searchHome").val();
+		var searchValue = $("#srearch-question-input").val();
 
-		if (searchWord != "") {
+		if (searchValue != "") {
 			console.log('searching')
 
 			app.user = new app.models.User(userJson);
@@ -49,7 +49,7 @@ app.views.homeView = Backbone.View.extend({
 			// app.homeView = new app.views.homeView();
 			app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.homeView.collection.url + "displaySearchQuestions/" + searchWord;
+			var url = app.homeView.collection.url + "search_questions/" + searchValue;
 			console.log("url: " + url);
 			app.homeView.collection.fetch({
 				reset: true,
@@ -78,7 +78,7 @@ app.views.homeView = Backbone.View.extend({
 			// app.homeView = new app.views.homeView();
 			app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.homeView.collection.url + "displayAllQuestions";
+			var url = app.homeView.collection.url + "display_all_questions";
 			// console.log("url: "+ url);
 			app.homeView.collection.fetch({
 				reset: true,
@@ -89,13 +89,10 @@ app.views.homeView = Backbone.View.extend({
 				},
 				error: function (model, xhr, options) {
 					if (xhr.status == 404) {
-						// console.log("error 404");
 						app.homeView.render();
 					}
-					// console.log("error");
 				}
 			});
 		}
-		// app.appRouter.navigate("home/search/"+search, {trigger: true});
 	}
 });

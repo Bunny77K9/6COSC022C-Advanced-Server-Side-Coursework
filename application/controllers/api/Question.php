@@ -11,8 +11,8 @@ class Question extends REST_Controller{
 		$this->load->model('QuestionModel');
 	}
 
-	public function displayAllQuestions_get($question_id = FALSE){
-		log_message('debug', 'Question::displayAllQuestions_get() - $question_id: ' . $question_id);
+	public function display_all_questions_get($question_id = FALSE){
+		log_message('debug', 'Question::display_all_questions_get() - $question_id: ' . $question_id);
 
 		if ($question_id === FALSE) {
 			$questions = $this->QuestionModel->getAllQuestions();
@@ -31,7 +31,7 @@ class Question extends REST_Controller{
 		}
 	}
 
-//	public function displayAllQuestions_get($question_id = FALSE){
+//	public function display_all_questions_get($question_id = FALSE){
 //		// Set session timeout to 60 seconds if session is not active
 //		if (!session_id()) {
 //			ini_set('session.cookie_lifetime', 60);
@@ -50,7 +50,7 @@ class Question extends REST_Controller{
 //			// Session is active or has not expired, update last activity time
 //			$_SESSION['last_activity'] = time();
 //
-//			log_message('debug', 'Question::displayAllQuestions_get() - $question_id: ' . $question_id);
+//			log_message('debug', 'Question::display_all_questions_get() - $question_id: ' . $question_id);
 //
 //			if ($question_id === FALSE) {
 //				$questions = $this->QuestionModel->getAllQuestions();
@@ -82,13 +82,13 @@ class Question extends REST_Controller{
 		}
 	}
 
-	public function displaySearchQuestions_get($searchWord = FALSE){
-		log_message('debug', 'Question::displaySearchQuestions_get() - $searchWord: ' . $searchWord);
+	public function search_questions_get($searchValue = FALSE){
+		log_message('debug', 'Question::search_questions_get() - $searchValue: ' . $searchValue);
 
-		if ($searchWord === FALSE) {
+		if ($searchValue === FALSE) {
 			$questions = $this->QuestionModel->getAllQuestions();
 		} else {
-			$questions = $this->QuestionModel->getSearchQuestions($searchWord);
+			$questions = $this->QuestionModel->getSearchQuestions($searchValue);
 		}
 
 		// Check if the user data exists

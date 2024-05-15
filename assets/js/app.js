@@ -81,7 +81,7 @@ function validateAnswerForm() {
 
 function validateSearchForm(){
 	var search = {
-		'search': $("input#searchHome").val()
+		'search': $("input#srearch-question-input").val()
 	};
 
 	if (!search.search) {

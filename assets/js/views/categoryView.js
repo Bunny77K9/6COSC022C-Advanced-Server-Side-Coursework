@@ -21,7 +21,7 @@ app.views.categoryView = Backbone.View.extend({
 	},
 
 	events: {
-		"click #ask_question_btn": "ask_question",
+		"click #ask-question-button": "newQuestion",
 		"click #search-category": "search_category",
 	},
 
@@ -63,7 +63,7 @@ app.views.categoryView = Backbone.View.extend({
 		}
 	},
 
-	ask_question: function (e) {
+	newQuestion: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -126,7 +126,7 @@ app.views.categoryView = Backbone.View.extend({
 
 			app.categoryView = new app.views.categoryView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.categoryView.collection.url + "displayAllQuestions";
+			var url = app.categoryView.collection.url + "display_all_questions";
 
 			app.categoryView.collection.fetch({
 				reset: true,
