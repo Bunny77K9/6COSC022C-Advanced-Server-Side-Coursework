@@ -15,6 +15,7 @@ app.views.homeView = Backbone.View.extend({
 			questionView.render();
 		})
 	},
+
 	events: {
 		"click #ask-question": "newQuestion",
 	},

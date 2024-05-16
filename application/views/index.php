@@ -78,7 +78,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </head>
 <body>
 
-<div class="container" style="margin-top: 70px; width: 93%;"></div>
+<div id="navbar-container"></div>
+<main class="container"></main>
 
 <?php include 'components/loginView.php'; ?>
 
