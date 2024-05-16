@@ -14,7 +14,7 @@
 				<form class="d-flex justify-content-center flex-grow-1 me-auto mb-2 mb-lg-0 search-form"
 					  role="search">
 					<input class="form-control me-2" id="search-question-input" type="search"
-						   placeholder="&#128269; Search Question" aria-label="Search">
+						   placeholder="&#128269; Search Questions" aria-label="Search">
 					<button class="btn btn-outline-secondary search-btn" id="search-question" type="submit">Search
 					</button>
 				</form>
