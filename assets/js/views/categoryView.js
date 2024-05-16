@@ -7,6 +7,8 @@ app.views.categoryView = Backbone.View.extend({
 		template = _.template($("#category-template").html());
 		this.$el.html(template(app.user.attributes));
 
+		console.log("categoryView rendered");
+
 		app.navbarView = new app.views.navbarView({model: app.user});
 		app.navbarView.render();
 

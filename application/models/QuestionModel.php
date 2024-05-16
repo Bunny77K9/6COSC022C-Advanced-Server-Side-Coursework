@@ -42,29 +42,24 @@ class QuestionModel extends CI_Model{
 				return false;
 			}
 		}
-//		$question = $this->db->get_where("Questions", array('questionid' => $question_id));
-//		if ($question->num_rows() > 0) {
-//			$question_array = $question->result();
-//			foreach ($question_array as $question) {
-//				$question_id = $question->questionid;
-//				$tag_query = $this->db->select('tags')
-//					->from('Tags')
-//					->where('questionid', $question_id)
-//					->get();
-//				$tags = $tag_query->result();
-//				$question->tags = array_column($tags, 'tags');
-//			}
-//			return $question_array;
-//		} else {
-//			return new stdClass();
-//		}
 	}
 
-	// getAllCategories from Questions table with distinct values. only the array with category values will be returned
 	public function getAllCategories(){
 		$this->db->distinct();
 		$this->db->select('category');
 		$categories = $this->db->get("Questions");
+
+		if($categories->num_rows() > 0){
+			return $categories->result();
+		}else{
+			return false;
+		}
+	}
+
+	public function getAllTags(){
+		$this->db->distinct();
+		$this->db->select('tags');
+		$categories = $this->db->get("Tags");
 
 		if($categories->num_rows() > 0){
 			return $categories->result();
@@ -102,10 +97,7 @@ class QuestionModel extends CI_Model{
 		}
 	}
 
-	// getCategoryQuestions
-
 	public function getCategoryQuestions($category) {
-		// $question = $this->db->get_where("Questions", array('questionid' => $question_id))->row();
 
 		$questions = $this->db->get_where("Questions", array('category' => $category));
 
@@ -126,25 +118,49 @@ class QuestionModel extends CI_Model{
 		}
 	}
 
-	public function addQuestion($userid, $title, $description, $expectation, $images, $category, $date, $tagArray, $imageurl) {
-		$this->db->trans_start(); // Start transaction
+	public function getTagsQuestions($tag) {
 
-//		$questionData = array(
-//			'userid' => $userid,
-//			'title' => $title,
-//			'question' => $question,
-//			'expectationQ' => $expectationQ,
-//			'questionimage' => $imageurl, // Ensure that the questionimage field is correctly set here
-//			'category' => $category,
-//			'qaddeddate' => $qaddeddate,
-//		);
+		$this->db->select('questionid');
+		$this->db->from('Tags');
+		$this->db->where('tags', $tag);
+		$tag_query = $this->db->get();
+
+		if ($tag_query->num_rows() > 0) {
+			$question_ids = array_column($tag_query->result(), 'questionid');
+
+			$this->db->where_in('questionid', $question_ids);
+			$questions = $this->db->get('Questions');
+
+			if ($questions->num_rows() > 0) {
+				$question_array = $questions->result();
+				foreach ($question_array as $question) {
+					$question_id = $question->questionid;
+					$tag_query = $this->db->select('tags')
+						->from('Tags')
+						->where('questionid', $question_id)
+						->get();
+					$tags = $tag_query->result();
+					$question->tags = array_column($tags, 'tags');
+				}
+				return $question_array;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public function addQuestion($userid, $title, $description, $expectation, $images, $category, $date, $tagArray, $imageurl) {
+		$this->db->trans_start();
+
 
 		$questionData = array(
 			'userid' => $userid,
 			'title' => $title,
 			'description' => $description,
 			'expectation' => $expectation,
-			'images' => $imageurl, // Ensure that the questionimage field is correctly set here
+			'images' => $imageurl,
 			'category' => $category,
 			'date' => $date,
 			'views' => 0

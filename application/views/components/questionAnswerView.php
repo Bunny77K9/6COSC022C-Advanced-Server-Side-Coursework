@@ -10,13 +10,18 @@
 						</a>
 					</li>
 					<li>
-						<a href="#home/category" class="nav-link link-dark">
-							<i class="fa-solid fa-layer-group"></i><span class="side-title">Category</span>
+						<a href="#home/bookmark/<%=user_id%>" class="nav-link link-dark">
+							<i class="fa-solid fa-bookmark"></i><span class="side-title">Bookmarks</span>
 						</a>
 					</li>
 					<li>
-						<a href="#home/bookmark/<%=user_id%>" class="nav-link link-dark">
-							<i class="fa-solid fa-bookmark"></i><span class="side-title">Bookmarks</span>
+						<a href="#home/category" class="nav-link link-dark">
+							<i class="fa-solid fa-layer-group"></i><span class="side-title">Categories</span>
+						</a>
+					</li>
+					<li>
+						<a href="#home/tags" class="nav-link link-dark">
+							<i class="fa-solid fa-tags"></i><span class="side-title">Tags</span>
 						</a>
 					</li>
 				</ul>

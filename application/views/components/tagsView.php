@@ -1,4 +1,4 @@
-<script type="text/template" id="category-template">
+<script type="text/template" id="tags-template">
 	<div class="container row">
 		<div class="col-sm-2 d-flex justify-content-center"
 			 style="border-right: 1px solid #c9c9c9;">
@@ -15,12 +15,12 @@
 						</a>
 					</li>
 					<li>
-						<a href="#home/category" class="nav-link link-active">
+						<a href="#home/category" class="nav-link link-dark">
 							<i class="fa-solid fa-layer-group"></i><span class="side-title">Categories</span>
 						</a>
 					</li>
 					<li>
-						<a href="#home/tags" class="nav-link link-dark">
+						<a href="#home/tags" class="nav-link link-active">
 							<i class="fa-solid fa-tags"></i><span class="side-title">Tags</span>
 						</a>
 					</li>
@@ -34,13 +34,13 @@
 		<div class="col-sm-10 px-5 mt-2">
 			<div class="page-heading" id="question">
 				<div class="heading">
-					<h1 class="title">Category</h1>
+					<h1 class="title">Tags</h1>
 					<button type="button" class="btn btn-outline-primary ask-question-btn" id="ask-question">Ask
 						Question
 					</button>
 				</div>
 				<hr>
-				<div id="category-buttons" class="d-flex gap-2 mt-3"></div>
+				<div id="tag-buttons" class="mt-3"></div>
 			</div>
 		</div>
 	</div>

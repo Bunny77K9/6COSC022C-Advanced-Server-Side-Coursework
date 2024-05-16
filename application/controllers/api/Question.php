@@ -122,10 +122,41 @@ class Question extends REST_Controller{
 		}
 	}
 
-	// display_all_categories
+	// displayTagsQuestions
+	public function displayTagsQuestions_get($tag = FALSE){
+		log_message('debug', 'Question::displayTagsQuestions_get() - $tag: ' . $tag);
+
+		if ($tag === FALSE) {
+			$questions = $this->QuestionModel->getAllQuestions();
+		} else {
+			$questions = $this->QuestionModel->getTagsQuestions($tag);
+		}
+
+		// Check if the user data exists
+		if (!empty($questions)) {
+			$this->response($questions, REST_Controller::HTTP_OK);
+		} else {
+			$this->response(array(
+				'status' => FALSE,
+				'message' => 'No questions found!'
+			), REST_Controller::HTTP_NO_CONTENT);
+		}
+	}
 
 	public function display_all_categories_get(){
 		$categories = $this->QuestionModel->getAllCategories();
+		if($categories) {
+			$this->response($categories, REST_Controller::HTTP_OK);
+		} else {
+			$this->response(array(
+				'status' => FALSE,
+				'message' => 'No categories found.'
+			), REST_Controller::HTTP_NO_CONTENT);
+		}
+	}
+
+	public function display_all_tags_get(){
+		$categories = $this->QuestionModel->getAllTags();
 		if($categories) {
 			$this->response($categories, REST_Controller::HTTP_OK);
 		} else {

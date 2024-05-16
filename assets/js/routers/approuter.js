@@ -7,6 +7,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 		"signup": "signup",
 		"home": "home",
 		"home/category": "category",
+		"home/tags": "tags",
 		"home/newquestion": "newquestion",
 		"home/answerquestion/:questionid": "answerquestion",
 		"home/bookmark/:userid": "bookmark",
@@ -99,6 +100,32 @@ app.routers.AppRouter = Backbone.Router.extend({
 				error: function(model, xhr, options){
 					if(xhr.status == 404){
 						app.categoryView.render();
+					}
+				}
+			});
+		} else {
+			app.appRouter.navigate("", {trigger: true});
+		}
+	},
+
+	tags: function(){
+		userJson = JSON.parse(localStorage.getItem("user"));
+
+		if (userJson != null){
+			app.user = new app.models.User(userJson);
+			app.tagsView = new app.views.tagsView({collection: new app.collections.QuestionCollection()});
+
+			var url = app.tagsView.collection.url + "display_all_questions";
+
+			app.tagsView.collection.fetch({
+				reset: true,
+				"url": url,
+				success: function(collection, response){
+					app.tagsView.render();
+				},
+				error: function(model, xhr, options){
+					if(xhr.status == 404){
+						app.tagsView.render();
 					}
 				}
 			});

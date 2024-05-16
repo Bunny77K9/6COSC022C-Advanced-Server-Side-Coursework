@@ -32,6 +32,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="../../assets/js/views/answerView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/bookmarksView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/categoryView.js" type="text/javascript"></script>
+	<script src="../../assets/js/views/tagsView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/profileView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/navbarView.js" type="text/javascript"></script>
 
@@ -89,6 +90,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <?php include 'components/categoryView.php'; ?>
 
+<?php include 'components/tagsView.php'; ?>
+
 <?php include 'components/profileView.php'; ?>
 
 <?php include 'components/questionsView.php'; ?>
@@ -105,9 +108,3 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 </body>
 </html>
-
-
-
-
-
-
