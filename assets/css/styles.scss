@@ -127,59 +127,65 @@ body {
 
 /* ====================== Login and Signup Page ====================== */
 
-.card-body {
-	background-color: #fff;
-	border-radius: 10px;
-	box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
-	padding: 20px 60px;
-	border: none;
-
-	.card-title {
-		margin: 40px;
-		font-size: 40px;
+.loin-signup {
+	.title {
+		font-size: 50px;
+		font-weight: 700;
 	}
 
-	.form-main {
-		width: 100%;
-
-		input {
-			height: auto;
-			margin: auto;
-			padding: 10px;
-			display: block;
-		}
-	}
-
-	.form-input-signup {
-		position: relative;
-		margin-bottom: 30px;
-
-		input {
-			height: auto;
-			margin: auto;
-			padding: 10px;
-			display: block;
-		}
-	}
-
-	.login-button {
-		width: 100%;
-		font-size: 20px;
-		padding: 7px 0;
-		transition: all 0.2s;
-		background-color: rgb(17 24 39);
+	.card-body {
+		background-color: #fff;
+		border-radius: 10px;
+		box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
+		padding: 20px 60px;
 		border: none;
 
-		&:hover {
-			background-color: rgb(55 65 81) !important;
+		.card-title {
+			margin: 40px;
+			font-size: 40px;
 		}
-	}
 
-	.reset-password, .auth-change {
-		padding: 10px 0;
+		.form-main {
+			width: 100%;
 
-		a {
-			text-decoration: none;
+			input {
+				height: auto;
+				margin: auto;
+				padding: 10px;
+				display: block;
+			}
+		}
+
+		.form-input-signup {
+			position: relative;
+
+			input {
+				height: auto;
+				margin: auto;
+				padding: 10px;
+				display: block;
+			}
+		}
+
+		.login-button {
+			width: 100%;
+			font-size: 20px;
+			padding: 7px 0;
+			transition: all 0.2s;
+			background-color: rgb(17 24 39);
+			border: none;
+
+			&:hover {
+				background-color: rgb(55 65 81) !important;
+			}
+		}
+
+		.reset-password, .auth-change {
+			padding: 10px 0;
+
+			a {
+				text-decoration: none;
+			}
 		}
 	}
 }
@@ -292,7 +298,6 @@ body {
 /* ====================== Answer Question View ====================== */
 
 .question-container {
-	margin-top: 60px;
 
 	.question-functions {
 		background: none;
