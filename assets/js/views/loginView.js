@@ -40,7 +40,7 @@ app.views.loginView = Backbone.View.extend({
 					}).show();
 					$("#logout").show();
 					localStorage.setItem('user', JSON.stringify(model));
-					app.appRouter.navigate("home", {trigger: true});
+					app.appRouter.navigate("questions", {trigger: true});
 				},
 				error: function (model, xhr) {
 					if (xhr.statsu = 401) {

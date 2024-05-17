@@ -62,7 +62,7 @@ app.views.categoryView = Backbone.View.extend({
 		e.preventDefault();
 		e.stopPropagation();
 
-		app.appRouter.navigate("home/newquestion", {trigger: true});
+		app.appRouter.navigate("questions/newquestion", {trigger: true});
 	},
 
 	getQuestionsCategory: function (e) {

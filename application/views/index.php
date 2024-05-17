@@ -25,7 +25,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- Views -->
 	<script src="../../assets/js/views/loginView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/signupView.js" type="text/javascript"></script>
-	<script src="../../assets/js/views/homeView.js" type="text/javascript"></script>
+	<script src="../../assets/js/views/questionsView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/questionView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/newQuestionView.js" type="text/javascript"></script>
 	<script src="../../assets/js/views/questionAnswerView.js" type="text/javascript"></script>
@@ -86,7 +86,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <?php include 'components/signupView.php'; ?>
 
-<?php include 'components/homeView.php'; ?>
+<?php include 'components/questionsView.php'; ?>
 
 <?php include 'components/categoryView.php'; ?>
 
@@ -94,7 +94,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <?php include 'components/profileView.php'; ?>
 
-<?php include 'components/questionsView.php'; ?>
+<?php include 'components/questionView.php'; ?>
 
 <?php include 'components/newQuestionView.php'; ?>
 

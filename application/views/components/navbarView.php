@@ -1,7 +1,7 @@
 <script type="text/template" id="navbar-template">
 	<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">DEV FORUM</a>
+			<a class="navbar-brand" href="#questions">DEV FORUM</a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -22,7 +22,7 @@
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<div class="nav-link">
-							<a class="profile-btn" href="#home/user/<%=user_id%>">
+							<a class="profile-btn" href="#questions/user">
 								<img src="<%=userimage%>" alt="profile image" class="profile-img me-1">
 								<%=firstname%>
 							</a>

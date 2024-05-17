@@ -23,6 +23,6 @@ app.views.bookmarksView = Backbone.View.extend({
 	newQuestion: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		app.appRouter.navigate("home/newquestion", {trigger: true});
+		app.appRouter.navigate("questions/newquestion", {trigger: true});
 	},
 })

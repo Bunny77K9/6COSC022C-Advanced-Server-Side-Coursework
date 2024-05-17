@@ -63,46 +63,237 @@ class QuestionModel extends CI_Model
 
 
 	/**
-	 * Retrieves all distinct categories from the questions in the database.
+	 * Adds a new question to the database.
 	 *
-	 * @return mixed Returns an array of categories if found, otherwise returns false.
+	 * @param int $userid The ID of the user who is adding the question.
+	 * @param string $title The title of the question.
+	 * @param string $description The description of the question.
+	 * @param string $expectation The expectation of the question.
+	 * @param string $images The images associated with the question.
+	 * @param string $category The category of the question.
+	 * @param string $date The date when the question was added.
+	 * @param array $tagArray An array containing tags associated with the question.
+	 * @param string $imageurl The URL of the image associated with the question.
+	 * @return bool Returns true if the question is successfully added, otherwise returns false.
 	 */
-	public function getAllCategories()
+	public function addQuestion($userid, $title, $description, $expectation, $images, $category, $date, $tagArray, $imageurl)
 	{
-		// Select distinct categories from the Questions table
-		$this->db->distinct();
-		$this->db->select('category');
-		$categories = $this->db->get("Questions");
+		// Start transaction
+		$this->db->trans_start();
 
-		if ($categories->num_rows() > 0) {
-			// If categories exist, return them
-			return $categories->result();
+		// Prepare question data
+		$questionData = array(
+			'userid' => $userid,
+			'title' => $title,
+			'description' => $description,
+			'expectation' => $expectation,
+			'images' => $imageurl,
+			'category' => $category,
+			'date' => $date,
+			'views' => 0
+		);
+
+		// Insert question details into the Questions table
+		$insertDetails = $this->db->insert('Questions', $questionData);
+
+		// If question details are inserted successfully
+		if ($insertDetails) {
+			$questionId = $this->db->insert_id();
+
+			// Insert tags associated with the question into the Tags table
+			foreach ($tagArray as $tag) {
+				$tagData = array(
+					'questionid' => $questionId,
+					'tags' => trim($tag)
+				);
+				$this->db->insert('Tags', $tagData);
+			}
+		}
+
+		// If question details are inserted successfully, update question count for the user
+		if ($insertDetails) {
+			$currentQuestionCount = $this->db->select('questioncount')
+				->from('Users')
+				->where('user_id', $userid)
+				->get()
+				->row();
+
+			$newQuestionCount = $currentQuestionCount->questioncount + 1;
+
+			$this->db->where('user_id', $userid)
+				->update('Users', array('questioncount' => $newQuestionCount));
+		}
+
+		// Complete transaction
+		$this->db->trans_complete();
+
+		// Return true if transaction is successful, otherwise false
+		return $insertDetails && $this->db->trans_status();
+	}
+
+
+	/**
+	 * Increases the upvote count for a question.
+	 *
+	 * @param int $questionid The ID of the question to upvote.
+	 * @return bool Returns true if the upvote count is successfully updated, otherwise returns false.
+	 */
+	public function upvote($questionid)
+	{
+		// Retrieve current upvotes count for the question
+		$currentUpvotes = $this->db->select('upvotes')
+			->from('Questions')
+			->where('questionid', $questionid)
+			->get()
+			->row()
+			->upvotes;
+
+		// Calculate new upvotes count
+		$newUpvotes = $currentUpvotes + 1;
+
+		// Update the upvotes count for the question
+		$updatedUpvotes = $this->db->where('questionid', $questionid)
+			->update('Questions', array('upvotes' => $newUpvotes));
+
+		// Return true if the upvotes count is successfully updated, otherwise false
+		return $updatedUpvotes;
+	}
+
+
+	/**
+	 * Decreases the upvote count for a question.
+	 *
+	 * @param int $questionid The ID of the question to downvote.
+	 * @return bool Returns true if the upvote count is successfully updated, otherwise returns false.
+	 */
+	public function downvote($questionid)
+	{
+		// Retrieve current upvotes count for the question
+		$currentUpvotes = $this->db->select('upvotes')
+			->from('Questions')
+			->where('questionid', $questionid)
+			->get()
+			->row()
+			->upvotes;
+
+		// Calculate new upvotes count
+		$newUpvotes = $currentUpvotes - 1;
+
+		// Update the upvotes count for the question
+		$updatedUpvotes = $this->db->where('questionid', $questionid)
+			->update('Questions', array('upvotes' => $newUpvotes));
+
+		// Return true if the upvotes count is successfully updated, otherwise false
+		return $updatedUpvotes;
+	}
+
+
+	/**
+	 * Retrieves bookmarked questions for a specific user.
+	 *
+	 * @param int $userid The ID of the user.
+	 * @return mixed Returns an array of bookmarked questions if found, otherwise returns false.
+	 */
+	public function getBookmarkQuestions($userid)
+	{
+		// Select questions associated with bookmarks for the given user
+		$this->db->select('Questions.*');
+		$this->db->from('Questions');
+		$this->db->join('Bookmarks', 'Questions.questionid = Bookmarks.questionid');
+		$this->db->where('Bookmarks.userid', $userid);
+
+		// Execute the query
+		$questions = $this->db->get();
+
+		// If bookmarked questions are found, process and return them
+		if ($questions->num_rows() > 0) {
+			$questionsArray = $questions->result();
+			foreach ($questionsArray as $questions) {
+				$question_id = $questions->questionid;
+				// Retrieve tags associated with each question
+				$tagsQuery = $this->db->select('tags')
+					->from('Tags')
+					->where('questionid', $question_id)
+					->get();
+				$tags = $tagsQuery->result();
+				// Add tags to the question object
+				$questions->tags = array_column($tags, 'tags');
+			}
+			// Return the array of bookmarked questions
+			return $questionsArray;
 		} else {
-			// Return false if no categories exist
+			// Return false if no bookmarked questions are found
 			return false;
 		}
 	}
 
 
 	/**
-	 * Retrieves all distinct tags from the Tags table in the database.
+	 * Checks if a question is bookmarked by a user.
 	 *
-	 * @return mixed Returns an array of tags if found, otherwise returns false.
+	 * @param int $questionid The ID of the question.
+	 * @param int $userid The ID of the user.
+	 * @return bool Returns true if the question is bookmarked by the user, otherwise returns false.
 	 */
-	public function getAllTags()
+	public function getBookmark($questionid, $userid)
 	{
-		// Select distinct tags from the Tags table
-		$this->db->distinct();
-		$this->db->select('tags');
-		$tags = $this->db->get("Tags");
+		// Check if there is a bookmark entry for the given question and user
+		$bookmark = $this->db->get_where("Bookmarks", array('questionid' => $questionid, 'userid' => $userid));
 
-		if ($tags->num_rows() > 0) {
-			// If tags exist, return them
-			return $tags->result();
-		} else {
-			// Return false if no tags exist
+		// Return true if a bookmark entry exists, otherwise false
+		return ($bookmark->num_rows() > 0);
+	}
+
+
+	/**
+	 * Adds a bookmark for a question by a user.
+	 *
+	 * @param int $questionid The ID of the question.
+	 * @param int $userid The ID of the user.
+	 * @return bool Returns true if the bookmark is successfully added, otherwise returns false.
+	 */
+	public function addBookmark($questionid, $userid)
+	{
+		// Check if the bookmark already exists
+		$this->db->where('questionid', $questionid);
+		$this->db->where('userid', $userid);
+
+		// Retrieve the bookmark
+		$existingBookmark = $this->db->get('Bookmarks')->row();
+
+		// If the bookmark already exists, return false
+		if ($existingBookmark) {
 			return false;
 		}
+
+		// Create bookmark data
+		$bookmarkInfo = array(
+			'questionid' => $questionid,
+			'userid' => $userid
+		);
+
+		// Insert the bookmark into the database
+		$bookmark = $this->db->insert('Bookmarks', $bookmarkInfo);
+
+		// Return true if the bookmark is successfully added, otherwise false
+		return $bookmark;
+	}
+
+
+	/**
+	 * Removes a bookmark for a question by a user.
+	 *
+	 * @param int $questionid The ID of the question.
+	 * @param int $userid The ID of the user.
+	 * @return bool Returns true if the bookmark is successfully removed, otherwise returns false.
+	 */
+	public function removeBookmark($questionid, $userid)
+	{
+		// Delete the bookmark entry for the given question and user
+		$bookmark = $this->db->delete("Bookmarks", array('questionid' => $questionid, 'userid' => $userid));
+
+		// Return true if the bookmark is successfully removed, otherwise false
+		return $bookmark;
 	}
 
 
@@ -237,235 +428,44 @@ class QuestionModel extends CI_Model
 
 
 	/**
-	 * Adds a new question to the database.
+	 * Retrieves all distinct categories from the questions in the database.
 	 *
-	 * @param int $userid The ID of the user who is adding the question.
-	 * @param string $title The title of the question.
-	 * @param string $description The description of the question.
-	 * @param string $expectation The expectation of the question.
-	 * @param string $images The images associated with the question.
-	 * @param string $category The category of the question.
-	 * @param string $date The date when the question was added.
-	 * @param array $tagArray An array containing tags associated with the question.
-	 * @param string $imageurl The URL of the image associated with the question.
-	 * @return bool Returns true if the question is successfully added, otherwise returns false.
+	 * @return mixed Returns an array of categories if found, otherwise returns false.
 	 */
-	public function addQuestion($userid, $title, $description, $expectation, $images, $category, $date, $tagArray, $imageurl)
+	public function getAllCategories()
 	{
-		// Start transaction
-		$this->db->trans_start();
+		// Select distinct categories from the Questions table
+		$this->db->distinct();
+		$this->db->select('category');
+		$categories = $this->db->get("Questions");
 
-		// Prepare question data
-		$questionData = array(
-			'userid' => $userid,
-			'title' => $title,
-			'description' => $description,
-			'expectation' => $expectation,
-			'images' => $imageurl,
-			'category' => $category,
-			'date' => $date,
-			'views' => 0
-		);
-
-		// Insert question details into the Questions table
-		$insertDetails = $this->db->insert('Questions', $questionData);
-
-		// If question details are inserted successfully
-		if ($insertDetails) {
-			$questionId = $this->db->insert_id();
-
-			// Insert tags associated with the question into the Tags table
-			foreach ($tagArray as $tag) {
-				$tagData = array(
-					'questionid' => $questionId,
-					'tags' => trim($tag)
-				);
-				$this->db->insert('Tags', $tagData);
-			}
-		}
-
-		// If question details are inserted successfully, update question count for the user
-		if ($insertDetails) {
-			$currentQuestionCount = $this->db->select('questioncount')
-				->from('Users')
-				->where('user_id', $userid)
-				->get()
-				->row();
-
-			$newQuestionCount = $currentQuestionCount->questioncount + 1;
-
-			$this->db->where('user_id', $userid)
-				->update('Users', array('questioncount' => $newQuestionCount));
-		}
-
-		// Complete transaction
-		$this->db->trans_complete();
-
-		// Return true if transaction is successful, otherwise false
-		return $insertDetails && $this->db->trans_status();
-	}
-
-
-	/**
-	 * Increases the upvote count for a question.
-	 *
-	 * @param int $questionid The ID of the question to upvote.
-	 * @return bool Returns true if the upvote count is successfully updated, otherwise returns false.
-	 */
-	public function upvote($questionid)
-	{
-		// Retrieve current upvotes count for the question
-		$currentUpvotes = $this->db->select('upvotes')
-			->from('Questions')
-			->where('questionid', $questionid)
-			->get()
-			->row()
-			->upvotes;
-
-		// Calculate new upvotes count
-		$newUpvotes = $currentUpvotes + 1;
-
-		// Update the upvotes count for the question
-		$updatedUpvotes = $this->db->where('questionid', $questionid)
-			->update('Questions', array('upvotes' => $newUpvotes));
-
-		// Return true if the upvotes count is successfully updated, otherwise false
-		return $updatedUpvotes;
-	}
-
-
-	/**
-	 * Decreases the upvote count for a question.
-	 *
-	 * @param int $questionid The ID of the question to downvote.
-	 * @return bool Returns true if the upvote count is successfully updated, otherwise returns false.
-	 */
-	public function downvote($questionid)
-	{
-		// Retrieve current upvotes count for the question
-		$currentUpvotes = $this->db->select('upvotes')
-			->from('Questions')
-			->where('questionid', $questionid)
-			->get()
-			->row()
-			->upvotes;
-
-		// Calculate new upvotes count
-		$newUpvotes = $currentUpvotes - 1;
-
-		// Update the upvotes count for the question
-		$updatedUpvotes = $this->db->where('questionid', $questionid)
-			->update('Questions', array('upvotes' => $newUpvotes));
-
-		// Return true if the upvotes count is successfully updated, otherwise false
-		return $updatedUpvotes;
-	}
-
-
-	/**
-	 * Checks if a question is bookmarked by a user.
-	 *
-	 * @param int $questionid The ID of the question.
-	 * @param int $userid The ID of the user.
-	 * @return bool Returns true if the question is bookmarked by the user, otherwise returns false.
-	 */
-	public function getBookmark($questionid, $userid)
-	{
-		// Check if there is a bookmark entry for the given question and user
-		$bookmark = $this->db->get_where("Bookmarks", array('questionid' => $questionid, 'userid' => $userid));
-
-		// Return true if a bookmark entry exists, otherwise false
-		return ($bookmark->num_rows() > 0);
-	}
-
-
-	/**
-	 * Removes a bookmark for a question by a user.
-	 *
-	 * @param int $questionid The ID of the question.
-	 * @param int $userid The ID of the user.
-	 * @return bool Returns true if the bookmark is successfully removed, otherwise returns false.
-	 */
-	public function removeBookmark($questionid, $userid)
-	{
-		// Delete the bookmark entry for the given question and user
-		$bookmark = $this->db->delete("Bookmarks", array('questionid' => $questionid, 'userid' => $userid));
-
-		// Return true if the bookmark is successfully removed, otherwise false
-		return $bookmark;
-	}
-
-
-	/**
-	 * Adds a bookmark for a question by a user.
-	 *
-	 * @param int $questionid The ID of the question.
-	 * @param int $userid The ID of the user.
-	 * @return bool Returns true if the bookmark is successfully added, otherwise returns false.
-	 */
-	public function addBookmark($questionid, $userid)
-	{
-		// Check if the bookmark already exists
-		$this->db->where('questionid', $questionid);
-		$this->db->where('userid', $userid);
-
-		// Retrieve the bookmark
-		$existingBookmark = $this->db->get('Bookmarks')->row();
-
-		// If the bookmark already exists, return false
-		if ($existingBookmark) {
+		if ($categories->num_rows() > 0) {
+			// If categories exist, return them
+			return $categories->result();
+		} else {
+			// Return false if no categories exist
 			return false;
 		}
-
-		// Create bookmark data
-		$bookmarkInfo = array(
-			'questionid' => $questionid,
-			'userid' => $userid
-		);
-
-		// Insert the bookmark into the database
-		$bookmark = $this->db->insert('Bookmarks', $bookmarkInfo);
-
-		// Return true if the bookmark is successfully added, otherwise false
-		return $bookmark;
 	}
 
 
 	/**
-	 * Retrieves bookmarked questions for a specific user.
+	 * Retrieves all distinct tags from the Tags table in the database.
 	 *
-	 * @param int $userid The ID of the user.
-	 * @return mixed Returns an array of bookmarked questions if found, otherwise returns false.
+	 * @return mixed Returns an array of tags if found, otherwise returns false.
 	 */
-	public function getBookmarkQuestions($userid)
+	public function getAllTags()
 	{
-		// Select questions associated with bookmarks for the given user
-		$this->db->select('Questions.*');
-		$this->db->from('Questions');
-		$this->db->join('Bookmarks', 'Questions.questionid = Bookmarks.questionid');
-		$this->db->where('Bookmarks.userid', $userid);
+		// Select distinct tags from the Tags table
+		$this->db->distinct();
+		$this->db->select('tags');
+		$tags = $this->db->get("Tags");
 
-		// Execute the query
-		$questions = $this->db->get();
-
-		// If bookmarked questions are found, process and return them
-		if ($questions->num_rows() > 0) {
-			$questionsArray = $questions->result();
-			foreach ($questionsArray as $questions) {
-				$question_id = $questions->questionid;
-				// Retrieve tags associated with each question
-				$tagsQuery = $this->db->select('tags')
-					->from('Tags')
-					->where('questionid', $question_id)
-					->get();
-				$tags = $tagsQuery->result();
-				// Add tags to the question object
-				$questions->tags = array_column($tags, 'tags');
-			}
-			// Return the array of bookmarked questions
-			return $questionsArray;
+		if ($tags->num_rows() > 0) {
+			// If tags exist, return them
+			return $tags->result();
 		} else {
-			// Return false if no bookmarked questions are found
+			// Return false if no tags exist
 			return false;
 		}
 	}

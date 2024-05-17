@@ -15,7 +15,6 @@ app.models.User = Backbone.Model.extend({
 		questioncount: null,
 	},
 	url: '/DevForum/index.php/api/User/',
-	urlAskQuestion: '/DevForum/index.php/api/Question/',
-	urlAnswerQuestion: '/DevForum/index.php/api/Answer/'
+	urlAskQuestion: '/DevForum/index.php/api/Question/'
 
 });

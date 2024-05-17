@@ -5,13 +5,13 @@ app.routers.AppRouter = Backbone.Router.extend({
 	routes: {
 		"": "login",
 		"signup": "signup",
-		"home": "home",
-		"home/category": "category",
-		"home/tags": "tags",
-		"home/newquestion": "newquestion",
-		"home/answerquestion/:questionid": "answerquestion",
-		"home/bookmark/:userid": "bookmark",
-		"home/user/:userid": "user",
+		"questions": "questions",
+		"questions/categories": "category",
+		"questions/tags": "tags",
+		"questions/newquestion": "newquestion",
+		"questions/question/:questionid": "question",
+		"questions/bookmarks": "bookmark",
+		"questions/user": "user",
 		"logout": "logout"
 	},
 
@@ -24,7 +24,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 				app.loginView.render();
 			}
 		}else {
-			this.home();
+			this.questions();
 		}
 	},
 
@@ -37,7 +37,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 				app.signupView.render();
 			}
 		}else {
-			this.home();
+			this.questions();
 		}
 	},
 
@@ -134,23 +134,23 @@ app.routers.AppRouter = Backbone.Router.extend({
 		}
 	},
 
-	home: function(){
+	questions: function(){
 		userJson = JSON.parse(localStorage.getItem("user"));
 
 		if (userJson != null){
 			app.user = new app.models.User(userJson);
-			app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
-			var url = app.homeView.collection.url + "display_all_questions";
+			app.questionsView = new app.views.questionsView({collection: new app.collections.QuestionCollection()});
+			var url = app.questionsView.collection.url + "display_all_questions";
 
-			app.homeView.collection.fetch({
+			app.questionsView.collection.fetch({
 				reset: true,
 				"url": url,
 				success: function(collection, response){
-					app.homeView.render();
+					app.questionsView.render();
 				},
 				error: function(model, xhr, options){
 					if(xhr.status == 404){
-						app.homeView.render();
+						app.questionsView.render();
 					}
 				}
 			});
@@ -170,7 +170,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 		}
 	},
 
-	answerquestion:function (questionid){
+	question:function (questionid){
 		userJson = JSON.parse(localStorage.getItem("user"));
 		$user_id = userJson.user_id;
 		if(userJson != null){

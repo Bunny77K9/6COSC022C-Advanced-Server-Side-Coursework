@@ -5,22 +5,22 @@
 			<div class="d-flex flex-column sidebar">
 				<ul class="nav nav-pills flex-column mb-auto side-nav">
 					<li class="nav-item">
-						<a href="#" class="nav-link link-active">
+						<a href="#questions" class="nav-link link-active">
 							<i class="fa-solid fa-house"></i><span class="side-title">Questions</span>
 						</a>
 					</li>
 					<li>
-						<a href="#home/bookmark/<%=user_id%>" class="nav-link link-dark">
+						<a href="#questions/bookmarks" class="nav-link link-dark">
 							<i class="fa-solid fa-bookmark"></i><span class="side-title">Bookmarks</span>
 						</a>
 					</li>
 					<li>
-						<a href="#home/category" class="nav-link link-dark">
+						<a href="#questions/categories" class="nav-link link-dark">
 							<i class="fa-solid fa-layer-group"></i><span class="side-title">Categories</span>
 						</a>
 					</li>
 					<li>
-						<a href="#home/tags" class="nav-link link-dark">
+						<a href="#questions/tags" class="nav-link link-dark">
 							<i class="fa-solid fa-tags"></i><span class="side-title">Tags</span>
 						</a>
 					</li>
@@ -98,7 +98,7 @@
 					<input type="checkbox" class="form-check-input" id="codeOfConductCheck">
 					<label class="form-check-label" for="codeOfConductCheck">By submitting your question, you agree
 						to
-						the <a href="#">code of conduct</a></label>
+						the <a href="#questions">code of conduct</a></label>
 				</div>
 
 				<button type="submit" id="submit-answer" class="btn btn-primary">Submit Answer

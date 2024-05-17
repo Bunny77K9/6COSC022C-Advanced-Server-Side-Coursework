@@ -19,7 +19,7 @@
 					</div>
 
 					<div class="reset-password mb-4 text-center">
-						<a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+						<a href="#questions" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
 							Forget Password</a>
 					</div>
 

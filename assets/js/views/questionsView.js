@@ -1,10 +1,10 @@
 var app = app || {};
 
-app.views.homeView = Backbone.View.extend({
+app.views.questionsView = Backbone.View.extend({
 	el: ".container",
 
 	render: function () {
-		template = _.template($('#home-template').html());
+		template = _.template($('#questions-template').html());
 		this.$el.html(template(app.user.attributes));
 
 		app.navbarView = new app.views.navbarView({model: app.user});
@@ -23,6 +23,6 @@ app.views.homeView = Backbone.View.extend({
 	newQuestion: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		app.appRouter.navigate("home/newquestion", {trigger: true});
+		app.appRouter.navigate("questions/newquestion", {trigger: true});
 	}
 });

@@ -100,7 +100,7 @@ app.views.profileView = Backbone.View.extend({
 				"url": url,
 				success: (model, response) => {
 					localStorage.setItem("user", JSON.stringify(model));
-					app.appRouter.navigate('home/user/' + userJson['user_id'], {trigger: true});
+					app.appRouter.navigate('questions/user', {trigger: true});
 
 					new Noty({
 						theme: 'bootstrap-v4', layout: 'bottomRight',

@@ -64,7 +64,7 @@ app.views.newQuestionView = Backbone.View.extend({
 							$('#questionCategory').val('');
 							$('#imageUpload').val('');
 
-							app.appRouter.navigate("home", {trigger: true});
+							app.appRouter.navigate("questions", {trigger: true});
 						},
 						error: (model, response) => {
 							new Noty({

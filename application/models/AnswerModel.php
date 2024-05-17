@@ -37,7 +37,7 @@ class AnswerModel extends CI_Model
 	public function addAnswer($questionid, $userid, $answer, $answeraddreddate, $imageurl)
 	{
 		// Prepare data for insertion
-		$answerData = array(
+		$newAnswerInfo = array(
 			'questionid' => $questionid,
 			'userid' => $userid,
 			'answer' => $answer,
@@ -46,10 +46,10 @@ class AnswerModel extends CI_Model
 		);
 
 		// Insert the answer into the database
-		$insertAns = $this->db->insert('Answers', $answerData);
+		$addNewAnswer = $this->db->insert('Answers', $newAnswerInfo);
 
 		// Update user's answer question count if insertion is successful
-		if ($insertAns) {
+		if ($addNewAnswer) {
 			// Retrieve user's past answer question count
 			$currentAnswerCount = $this->db->select('answercount')
 				->from('Users')
@@ -66,7 +66,7 @@ class AnswerModel extends CI_Model
 		}
 
 		// Return the result of the insertion
-		return $insertAns;
+		return $addNewAnswer;
 	}
 
 

@@ -20,11 +20,11 @@ app.views.navbarView = Backbone.View.extend({
 
 		if (validateSearch) {
 			app.user = new app.models.User(userJson);
-			app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
+			app.questionsView = new app.views.questionsView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.homeView.collection.url + "display_search_questions/" + validateSearch.search
+			var url = app.questionsView.collection.url + "display_search_questions/" + validateSearch.search
 
-			app.homeView.collection.fetch({
+			app.questionsView.collection.fetch({
 				reset: true,
 				"url": url,
 				success: function (collection, response) {
@@ -36,29 +36,29 @@ app.views.navbarView = Backbone.View.extend({
 							timeout: 2000
 						}).show();
 					}
-					app.homeView.render();
+					app.questionsView.render();
 				},
 				error: function (model, xhr, options) {
 					if (xhr.status == 204) {
-						app.homeView.render();
+						app.questionsView.render();
 					}
 				}
 			});
 		} else {
 			app.user = new app.models.User(userJson);
-			app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
+			app.questionsView = new app.views.questionsView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.homeView.collection.url + "display_all_questions";
+			var url = app.questionsView.collection.url + "display_all_questions";
 
-			app.homeView.collection.fetch({
+			app.questionsView.collection.fetch({
 				reset: true,
 				"url": url,
 				success: function (collection, response) {
-					app.homeView.render();
+					app.questionsView.render();
 				},
 				error: function (model, xhr, options) {
 					if (xhr.status == 404) {
-						app.homeView.render();
+						app.questionsView.render();
 					}
 				}
 			});
