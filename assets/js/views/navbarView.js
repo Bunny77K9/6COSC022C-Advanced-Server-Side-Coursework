@@ -22,7 +22,7 @@ app.views.navbarView = Backbone.View.extend({
 			app.user = new app.models.User(userJson);
 			app.homeView = new app.views.homeView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.homeView.collection.url + "search_questions/" + validateSearch.search
+			var url = app.homeView.collection.url + "display_search_questions/" + validateSearch.search
 
 			app.homeView.collection.fetch({
 				reset: true,

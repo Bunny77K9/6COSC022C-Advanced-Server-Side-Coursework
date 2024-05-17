@@ -93,7 +93,7 @@ app.views.profileView = Backbone.View.extend({
 		if (validateEditUserDetailsForm.firstname) {
 
 			this.model.set(validateEditUserDetailsForm);
-			var url = this.model.url + "edit_user";
+			var url = this.model.url + "edit_user_details";
 
 			this.model.save(this.model.attributes, {
 				"url": url,

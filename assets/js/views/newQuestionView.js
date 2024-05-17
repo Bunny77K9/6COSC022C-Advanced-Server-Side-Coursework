@@ -34,7 +34,7 @@ app.views.newQuestionView = Backbone.View.extend({
 			formData.append('image', imageFile);
 
 			$.ajax({
-				url: this.model.url + 'new_question_image',
+				url: this.model.urlAskQuestion + 'new_question_image',
 				type: 'POST',
 				data: formData,
 				processData: false,
@@ -42,7 +42,7 @@ app.views.newQuestionView = Backbone.View.extend({
 				success: (response) => {
 					validateQuestionForm.images = response.imagePath;
 					this.model.set(validateQuestionForm);
-					var url = this.model.urlAskQuestion + "addquestion";
+					var url = this.model.urlAskQuestion + "add_new_question";
 					this.model.save(this.model.attributes, {
 						"url": url,
 						success: (model, response) => {

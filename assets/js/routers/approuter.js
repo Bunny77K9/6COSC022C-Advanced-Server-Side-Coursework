@@ -56,7 +56,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 		$userid = userJson.user_id;
 		if(userJson != null){
 			app.user = new app.models.User(userJson);
-			var url = app.user.urlAskQuestion + "bookmarkQuestions/"+$userid;
+			var url = app.user.urlAskQuestion + "display_all_bookmarked_questions/"+$userid;
 			app.bookmarksView = new app.views.bookmarksView({collection: new app.collections.QuestionCollection()});
 
 			app.bookmarksView.collection.fetch({
@@ -183,7 +183,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 					responseQ['username'] = app.user.get("username");
 					var questionModel = new app.models.Questions(responseQ);
 					questionModel.set("user_id", responseQ['userid']);
-					var urlBookmark = app.user.urlAskQuestion + "getBookmark";
+					var urlBookmark = app.user.urlAskQuestion + "display_question_bookmark";
 
 					$.ajax({
 						url: urlBookmark,
@@ -209,7 +209,7 @@ app.routers.AppRouter = Backbone.Router.extend({
 								});
 							}
 
-							var answerUrl = app.ansQuestionView.collection.url + "getAnswers/" + questionid;
+							var answerUrl = app.ansQuestionView.collection.url + "display_question_answers/" + questionid;
 
 							app.ansQuestionView.collection.fetch({
 								reset: true,

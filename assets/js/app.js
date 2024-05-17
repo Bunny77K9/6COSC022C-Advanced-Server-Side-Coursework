@@ -154,7 +154,7 @@ function validateQuestionAddForm() {
 
 	var inputError1 = 'Title field is empty';
 	var inputError2 = 'Question field is empty';
-	var inputError3 = 'Question should be at least 20 characters';
+	var inputError3 = 'Question should be at least 50 characters';
 	var inputError4 = 'Expectation field is empty';
 	var inputError5 = 'Expectation should be at least 20 characters';
 	var inputError6 = 'At least one tag required';
@@ -169,7 +169,7 @@ function validateQuestionAddForm() {
 
 	if (!question.title) {
 		return inputError1;
-	} else if (question.title.length < 20) {
+	} else if (question.title.length > 50) {
 		return inputError9;
 	} else if (question.title.length > 100) {
 		return inputError10;

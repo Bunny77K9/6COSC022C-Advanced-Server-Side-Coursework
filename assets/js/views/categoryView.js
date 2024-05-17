@@ -49,7 +49,7 @@ app.views.categoryView = Backbone.View.extend({
 
 		for (var i = 0; i < categories.length; i++) {
 			var $button = $('<button>', {
-				class: 'btn btn-outline-primary category-btn',
+				class: 'btn btn-outline-primary m-1',
 				id: 'search-category',
 				'data-category': categories[i].category,
 				text: categories[i].category
@@ -78,7 +78,7 @@ app.views.categoryView = Backbone.View.extend({
 			app.user = new app.models.User(userJson);
 			app.categoryView = new app.views.categoryView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.categoryView.collection.url + "displayCategoryQuestions/" + category;
+			var url = app.categoryView.collection.url + "display_category_questions/" + category;
 			app.categoryView.collection.fetch({
 				reset: true,
 				"url": url,

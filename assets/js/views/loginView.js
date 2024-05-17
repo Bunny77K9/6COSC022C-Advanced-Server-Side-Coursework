@@ -27,7 +27,7 @@ app.views.loginView = Backbone.View.extend({
 			$("#login-error").html("Please enter the login cridentials!!");
 		}else {
 			this.model.set(validateForm);
-			var url = this.model.url + "signin";
+			var url = this.model.url + "login";
 			this.model.save(this.model.attributes, {
 				"url": url,
 				success: function (model, response) {

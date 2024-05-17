@@ -48,7 +48,7 @@ app.views.tagsView = Backbone.View.extend({
 
 		for (var i = 0; i < tags.length; i++) {
 			var $button = $('<button>', {
-				class: 'btn btn-outline-primary tag-btn m-1',
+				class: 'btn btn-outline-primary m-1',
 				id: 'search-tag',
 				'data-tag': tags[i].tags,
 				text: tags[i].tags
@@ -77,7 +77,7 @@ app.views.tagsView = Backbone.View.extend({
 			app.user = new app.models.User(userJson);
 			app.tagsView = new app.views.tagsView({collection: new app.collections.QuestionCollection()});
 
-			var url = app.tagsView.collection.url + "displayTagsQuestions/" + tag;
+			var url = app.tagsView.collection.url + "display_tag_questions/" + tag;
 			app.tagsView.collection.fetch({
 				reset: true,
 				"url": url,

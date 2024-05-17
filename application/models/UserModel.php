@@ -2,26 +2,34 @@
 
 class UserModel extends CI_Model{
 
-	public function loginUser($username, $password){
-		$this->db->select('*');
-		$this->db->where("(username = '$username' OR email = '$username')");
-		$this->db->where('password', $password);
-		$this->db->from('users');
+	public function loginUser($username, $hashedPassword)
+	{
+		try {
+			$this->db->select('*');
+			$this->db->from('users');
+			$this->db->where("(username = '$username' OR email = '$username')");
+			$this->db->where('password', $hashedPassword);
+			$query = $this->db->get();
 
-		$respond = $this->db->get();
-		if($respond->num_rows() == 1){
-			return ($respond->row(0));
-		}else{
+			if ($query->num_rows() == 1) {
+				return $query->row();
+			} else {
+				log_message('info', 'Login attempt with invalid credentials: ' . $username);
+				return false;
+			}
+		} catch (Exception $e) {
+			log_message('error', 'Database query error: ' . $e->getMessage());
 			return false;
 		}
 	}
 
-	public function registerUser($userData){
+
+	public function signupUser($userData){
 		$insertDetails = $this->db->insert('users', $userData);
 		return $insertDetails;
 	}
 
-	public function updateUser($user_id, $userData){
+	public function updateProfileDetails($user_id, $userData){
 		// Select specific columns from the database table
 		$this->db->select('user_id, username, occupation, firstname, lastname, email');
 		$this->db->where('user_id', $user_id);
@@ -47,7 +55,7 @@ class UserModel extends CI_Model{
 		}
 	}
 
-	public function updatePassword($user_id,  $oldpassword, $newpassword) {
+	public function changePassword($user_id,  $oldpassword, $newpassword) {
 
 		// Retrieve existing password from the database
 		$this->db->select('password');
@@ -111,7 +119,7 @@ class UserModel extends CI_Model{
 //
 //	}
 
-	public function updateUserImage($user_id, $userData){
+	public function updateProfilePicture($user_id, $userData){
 
 		$this->db->select('userimage');
 		$this->db->where('user_id', $user_id);
@@ -147,7 +155,7 @@ class UserModel extends CI_Model{
 	}
 
 
-	public function checkUser($username){
+	public function checkUsernameExist($username){
 		$this->db->select('username, email');
 		$this->db->where("(username = '$username' OR email = '$username')");
 		$respond = $this->db->get('users');

@@ -40,7 +40,7 @@
 					</button>
 				</div>
 				<hr>
-				<div id="category-buttons" class="d-flex gap-2 mt-3"></div>
+				<div id="category-buttons" class="mt-3"></div>
 			</div>
 		</div>
 	</div>
