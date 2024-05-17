@@ -15,7 +15,7 @@ app.models.Questions = Backbone.Model.extend({
 		is_bookmark:null,
 		views:null,
 		date:null,
-		answeraddeddate:null,
+		answereddate:null,
 	},
 	url: '/DevForum/index.php/api/Question/',
 	urlAns: '/DevForum/index.php/api/Answer/',

@@ -54,7 +54,7 @@ app.views.newQuestionView = Backbone.View.extend({
 							}).show();
 
 							$userJson = JSON.parse(localStorage.getItem("user"));
-							$userJson['askquestioncnt'] = parseInt($userJson['askquestioncnt']) + 1;
+							$userJson['questioncount'] = parseInt($userJson['questioncount']) + 1;
 							localStorage.setItem("user", JSON.stringify($userJson));
 
 							$('#inputQuestionTitle').val('');

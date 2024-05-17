@@ -15,7 +15,7 @@
 			<img src="<%=answerimage%>" alt="Answer Image" class="answer-image">
 			<% } %>
 			<hr>
-			<p class="date"><strong>Date: </strong><%= answeraddeddate %></p>
+			<p class="date"><strong>Date: </strong><%= answereddate %></p>
 		</div>
 	</div>
 </script>

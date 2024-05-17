@@ -291,7 +291,7 @@ app.views.questionAnswerView = Backbone.View.extend({
 							}).show();
 
 							$userJson = JSON.parse(localStorage.getItem("user"));
-							$userJson['answerquestioncnt'] = parseInt($userJson['answerquestioncnt']) + 1;
+							$userJson['answercount'] = parseInt($userJson['answercount']) + 1;
 
 							localStorage.setItem("user", JSON.stringify($userJson));
 

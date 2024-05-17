@@ -19,7 +19,7 @@ app.views.signupView = Backbone.View.extend({
 		var validateForm = validateRegisterForm();
 
 		if (!validateForm.username || !validateForm.password || !validateForm.email || !validateForm.firstname ||
-			!validateForm.lastname || !validateForm.occupation) {
+			!validateForm.lastname || !validateForm.title) {
 			$("#signup-error").html("Please fill all fields!");
 			new Noty({
 				theme: 'bootstrap-v4', layout: 'bottomRight',
@@ -39,6 +39,14 @@ app.views.signupView = Backbone.View.extend({
 						text: 'Registration successful!',
 						timeout: 2000
 					}).show();
+
+					$('#signupFirstname').val('');
+					$('#signupLastname').val('');
+					$('#signupUsername').val('');
+					$('#signupPassword').val('');
+					$('#signupOccupation').val('');
+					$('#signupEmail').val('');
+
 					app.appRouter.navigate("", {trigger: true, replace: true});
 				},
 				error: function (model, xhr) {
@@ -50,17 +58,24 @@ app.views.signupView = Backbone.View.extend({
 							text: 'Username or Email already exists!',
 							timeout: 2000
 						}).show();
+					} else if (xhr.status === 500) {
+						$("#signup-error").html(xhr.responseJSON.data);
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
+							type: 'error',
+							text: 'Internal server error!',
+							timeout: 2000
+						}).show();
 					} else {
-						$("#signup-error").html();
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
+							type: 'error',
+							text: 'Unknown error!',
+							timeout: 2000
+						}).show();
 					}
 				}
 			});
 		}
-		$('#signupFirstname').val('');
-		$('#signupLastname').val('');
-		$('#signupUsername').val('');
-		$('#signupPassword').val('');
-		$('#signupOccupation').val('');
-		$('#signupEmail').val('');
 	}
 });

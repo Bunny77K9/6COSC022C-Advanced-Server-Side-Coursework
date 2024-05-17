@@ -12,7 +12,7 @@ app.models.Answers = Backbone.Model.extend({
 		rate: null,
 		questionrate: null,
 		viewstatus: null,
-		answeraddeddate: null
+		answereddate: null
 	},
 	url: '/DevForum/index.php/api/Answer/',
 });

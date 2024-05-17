@@ -1,37 +1,39 @@
 var app = app || {};
 
 app.views.loginView = Backbone.View.extend({
-    el: ".container",
+	el: ".container",
 
-    render: function () {
-        template = _.template($('#login-template').html());
-        this.$el.html(template(this.model.attributes));
-    },
+	render: function () {
+		template = _.template($('#login-template').html());
+		this.$el.html(template(this.model.attributes));
+	},
 
-    events: {
-        "click #login-button": "login",
+	events: {
+		"click #login-button": "login",
 		"click #reset-password-button": "resetPassword"
-    },
+	},
 
-    login: function (e) {
+	login: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
 		var validateForm = validateLoginForm();
 		if (!validateForm) {
-			new Noty({ theme: 'bootstrap-v4', layout: 'bottomCenter',
+			new Noty({
+				theme: 'bootstrap-v4', layout: 'bottomCenter',
 				type: 'error',
 				text: 'Please enter the login cridentials!',
 				timeout: 2000
 			}).show();
 			$("#login-error").html("Please enter the login cridentials!!");
-		}else {
+		} else {
 			this.model.set(validateForm);
 			var url = this.model.url + "login";
 			this.model.save(this.model.attributes, {
 				"url": url,
 				success: function (model, response) {
-					new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+					new Noty({
+						theme: 'bootstrap-v4', layout: 'bottomRight',
 						type: 'success',
 						text: 'Login successful',
 						timeout: 2000
@@ -40,72 +42,89 @@ app.views.loginView = Backbone.View.extend({
 					localStorage.setItem('user', JSON.stringify(model));
 					app.appRouter.navigate("home", {trigger: true});
 				},
-				error:function (model,xhr) {
-					if(xhr.statsu=400){
+				error: function (model, xhr) {
+					if (xhr.statsu = 401) {
 						$("#login-error").html("Username or Password Incorrect");
-						new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
 							type: 'error',
 							text: 'Username or Password is Incorrect',
+							timeout: 2000
+						}).show();
+					} else if (xhr.status === 500) {
+						$("#login-error").html("User not found");
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
+							type: 'error',
+							text: 'Internal server error!',
+							timeout: 2000
+						}).show();
+					} else {
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
+							type: 'error',
+							text: 'Unknown error!',
 							timeout: 2000
 						}).show();
 					}
 				}
 			});
 		}
-    },
+	},
 
-	resetPassword: function (){
+	resetPassword: function (e) {
+		e.preventDefault()
+		e.stopPropagation()
 
-		$username = $("input#username").val();
-		$newPassword = $("input#newPassword").val();
-		$confirmPassword = $("input#confirmPassword").val();
+		var validateResetPassword = validateResetPasswordForm()
 
-		if($newPassword != $confirmPassword){
-			new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+		if (!validateResetPassword.username || !validateResetPassword.newpassword || !validateResetPassword.confirmpassword) {
+			new Noty({
+				theme: 'bootstrap-v4', layout: 'bottomRight',
 				type: 'error',
-				text: 'New password and confirm password do not match',
+				text: 'Form validation error: ' + validateResetPassword,
 				timeout: 2000
-			}).show();
-		}else{
+			}).show()
+		} else {
 			var userPass = {
-				'username': $username,
-				'newpassword': $newPassword,
-				'confirmpassword': $confirmPassword
-			};
+				'username': $("input#username").val(),
+				'newpassword': $("input#newPassword").val(),
+				'confirmpassword': $("input#confirmPassword").val()
+			}
 
-			var url = this.model.url + "reset_password";
+			var url = this.model.url + "reset_password"
 
 			$.ajax({
 				url: url,
 				type: 'POST',
 				data: userPass,
-				success: (response) =>{
-					if(response.status === true){
-						new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
+				success: (response) => {
+					if (response.status === true) {
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
 							type: 'success',
 							text: 'Password reset successful!',
 							timeout: 2000
-						}).show();
-						$('#resetPasswordModal').modal('hide');
-					}else if(response.status === false){
-						new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
-							type: 'error',
-							text: 'Username or email incorrect',
-							timeout: 2000
-						}).show();
+						}).show()
+
+						$('#username').val('')
+						$('#newPassword').val('')
+						$('#confirmPassword').val('')
+
+						$('#resetPasswordModal').modal('hide')
 					}
 				},
-				error: function(response){
-					new Noty({ theme: 'bootstrap-v4', layout: 'bottomRight',
-						type: 'error',
-						text: 'Password reset failed!',
-						timeout: 2000
-					}).show();
+				error: function (response) {
+					if (response.status === false) {
+						new Noty({
+							theme: 'bootstrap-v4', layout: 'bottomRight',
+							type: 'error',
+							text: 'Please check the details and try again!',
+							timeout: 2000
+						}).show()
+					}
 				}
 			})
 		}
-		$("input#username").val("");
-		$("input#newPassword").val(""),
-			$("input#confirmPassword").val("");
 	}
 });

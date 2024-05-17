@@ -22,7 +22,7 @@ function validateRegisterForm() {
 		'username': $("input#signupUsername").val(),
 		'password': $("input#signupPassword").val(),
 		'email': $("input#signupEmail").val(),
-		'occupation': $("input#signupOccupation").val(),
+		'title': $("input#signupOccupation").val(),
 	};
 
 	var registerError1 = 'First name field is empty';
@@ -42,7 +42,7 @@ function validateRegisterForm() {
 		return registerError4;
 	} else if (!user.email) {
 		return registerError5;
-	} else if (!user.occupation) {
+	} else if (!user.title) {
 		return registerError6;
 	} else {
 		return user;
@@ -81,11 +81,36 @@ function validateChangePasswordForm() {
 	}
 }
 
+function validateResetPasswordForm() {
+	var userPass = {
+		'username': $("input#username").val(),
+		'newpassword': $("input#newPassword").val(),
+		'confirmpassword': $("input#confirmPassword").val()
+	};
+
+	var passError1 = 'Username or email field is empty';
+	var passError2 = 'New password field is empty';
+	var passError3 = 'Confirm password field is empty';
+	var passError4 = 'New password and confirm password do not match';
+
+	if (!userPass.username) {
+		return passError1;
+	} else if (!userPass.newpassword) {
+		return passError2;
+	} else if (!userPass.confirmpassword) {
+		return passError3;
+	} else if (userPass.newpassword !== userPass.confirmpassword) {
+		return passError4;
+	} else {
+		return userPass;
+	}
+}
+
 function validateAnswerForm() {
 	var answer = {
 		'answer': $("textarea#inputQuestionDetails").val().replace(/\n/g, '<br>'),
 		'answerimage': $("input#answerImageUpload")[0].files[0],
-		'answeraddeddate': new Date().toISOString().slice(0, 19).replace('T', ' ')
+		'answereddate': new Date().toISOString().slice(0, 19).replace('T', ' ')
 	};
 
 	var answerError1 = 'Answer field is empty';
@@ -115,7 +140,7 @@ function validateEditUserDetailsAddForm() {
 	var editUser = {
 		'firstname': $("input#firstname").val(),
 		'lastname': $("input#lastname").val(),
-		'occupation': $("input#title").val(),
+		'title': $("input#title").val(),
 		'username': $("input#username").val(),
 		'email': $("input#email").val(),
 	};
@@ -130,7 +155,7 @@ function validateEditUserDetailsAddForm() {
 		return editUserError1;
 	} else if (!editUser.lastname) {
 		return editUserError2;
-	} else if (!editUser.occupation) {
+	} else if (!editUser.title) {
 		return editUserError3;
 	} else if (!editUser.username) {
 		return editUserError4;

@@ -1,168 +1,301 @@
 <?php
 
-class UserModel extends CI_Model{
+class UserModel extends CI_Model
+{
 
+	/**
+	 * Logs in a user by checking the provided username or email and hashed password against the database.
+	 *
+	 * @param string $username The username or email of the user.
+	 * @param string $hashedPassword The hashed password of the user.
+	 * @return mixed Returns the user data if login successful, otherwise returns false.
+	 */
 	public function loginUser($username, $hashedPassword)
 	{
 		try {
+			// Selecting user data from the database based on provided credentials
 			$this->db->select('*');
-			$this->db->from('users');
+			$this->db->from('Users');
 			$this->db->where("(username = '$username' OR email = '$username')");
 			$this->db->where('password', $hashedPassword);
 			$query = $this->db->get();
 
+			// If only one user found matching the credentials, return user data
 			if ($query->num_rows() == 1) {
 				return $query->row();
 			} else {
+				// Log unsuccessful login attempts
 				log_message('info', 'Login attempt with invalid credentials: ' . $username);
+				// Return false for unsuccessful login
 				return false;
 			}
 		} catch (Exception $e) {
+			// Log database query errors
 			log_message('error', 'Database query error: ' . $e->getMessage());
+			// Return false for database query errors during login
 			return false;
 		}
 	}
 
 
-	public function signupUser($userData){
-		$insertDetails = $this->db->insert('users', $userData);
-		return $insertDetails;
+	/**
+	 * Signs up a new user by inserting user data into the database.
+	 *
+	 * @param array $userData An associative array containing user data.
+	 * @return boolean Returns true if user signup is successful, otherwise returns false.
+	 */
+	public function signupUser($userData)
+	{
+		try {
+			// Attempt to insert user data into the 'Users' table
+			$insertUserDetails = $this->db->insert('Users', $userData);
+			return $insertUserDetails;
+		} catch (Exception $e) {
+			// Log any errors that occur during the database insert
+			log_message('error', 'Database insert error: ' . $e->getMessage());
+			return false;
+		}
 	}
 
-	public function updateProfileDetails($user_id, $userData){
-		// Select specific columns from the database table
-		$this->db->select('user_id, username, occupation, firstname, lastname, email');
-		$this->db->where('user_id', $user_id);
-		$existingData = $this->db->get('users')->row_array();
 
-		// Check if the existing data is different from $userData
-		$isDifferent = false;
-		foreach ($existingData as $key => $value) {
-			if (isset($userData[$key]) && $existingData[$key] !== $userData[$key]) {
-				$isDifferent = true;
-				break;
+	/**
+	 * Checks if a username already exists in the database.
+	 *
+	 * @param string $username The username to check.
+	 * @return boolean Returns true if the username exists, otherwise returns false.
+	 */
+	public function checkUsernameExist($username)
+	{
+		try {
+			// Selecting username from the 'Users' table
+			$this->db->select('username');
+			$this->db->from('Users');
+			$this->db->where('username', $username);
+			$query = $this->db->get();
+
+			// If only one row matches the query condition, return true
+			if ($query->num_rows() == 1) {
+				return true;
+			} else {
+				// If no rows match, return false
+				return false;
 			}
-		}
-
-		if ($isDifferent) {
-			// Perform the update
-			$this->db->where('user_id', $user_id);
-			$updateDetails = $this->db->update('users', $userData);
-			return $updateDetails;
-		} else {
-			// Data is already up to date, no need to update
+		} catch (Exception $e) {
+			// Log database query errors
+			log_message('error', 'Database query error: ' . $e->getMessage());
+			// Return false indicating an error occurred during the query
 			return false;
 		}
 	}
 
-	public function changePassword($user_id,  $oldpassword, $newpassword) {
 
-		// Retrieve existing password from the database
+	/**
+	 * Checks if an email already exists in the database.
+	 *
+	 * @param string $email The email to check.
+	 * @return boolean Returns true if the email exists, otherwise returns false.
+	 */
+	public function checkEmailExist($email)
+	{
+		try {
+			// Selecting email from the 'Users' table
+			$this->db->select('email');
+			$this->db->from('Users');
+			$this->db->where('email', $email);
+			$query = $this->db->get();
+
+			// If only one row matches the query condition, return true
+			if ($query->num_rows() == 1) {
+				return true;
+			} else {
+				// If no rows match, return false
+				return false;
+			}
+		} catch (Exception $e) {
+			// Log database query errors
+			log_message('error', 'Database query error: ' . $e->getMessage());
+			// Return false indicating an error occurred during the query
+			return false;
+		}
+	}
+
+
+	/**
+	 * Resets the password for a user.
+	 *
+	 * @param string $username The username or email of the user.
+	 * @param string $newPassword The new password for the user.
+	 * @return boolean Returns true if password reset is successful, otherwise returns false.
+	 */
+	public function resetPassword($username, $newPassword)
+	{
+		try {
+			// Selecting password from the 'Users' table based on provided username or email
+			$this->db->select('password');
+			$this->db->where("(username = '$username' OR email = '$username')");
+			$query = $this->db->get('Users');
+
+			// If at least one user found with the provided username or email
+			if ($query->num_rows() > 0) {
+				// Updating the password for the user
+				$this->db->where("(username = '$username' OR email = '$username')");
+				$response = $this->db->update('Users', array('password' => $newPassword));
+				return $response;
+			} else {
+				// If no user found, return false
+				return false;
+			}
+		} catch (Exception $e) {
+			// Log database update errors
+			log_message('error', 'Database update error: ' . $e->getMessage());
+			// Return false indicating an error occurred during the update
+			return false;
+		}
+	}
+
+
+	/**
+	 * Updates profile details of a user.
+	 *
+	 * @param int $user_id The ID of the user.
+	 * @param array $userEditDetails An associative array containing the updated user details.
+	 * @return boolean Returns true if profile details are successfully updated, otherwise returns false.
+	 */
+	public function updateProfileDetails($user_id, $userEditDetails)
+	{
+		try {
+			$isDifferentDetails = false;
+
+			// Selecting user details from the 'Users' table based on user_id
+			$this->db->select('user_id, username, title, firstname, lastname, email');
+			$this->db->where('user_id', $user_id);
+
+			// Getting existing user details as an associative array
+			$existingUserDetails = $this->db->get('Users')->row_array();
+
+			// Checking if the updated details are different from the existing ones
+			foreach ($existingUserDetails as $key => $value) {
+				if (isset($userEditDetails[$key]) && $existingUserDetails[$key] !== $userEditDetails[$key]) {
+					$isDifferentDetails = true;
+					break;
+				}
+			}
+
+			// If updated details are different, update the user profile
+			if ($isDifferentDetails) {
+				$this->db->where('user_id', $user_id);
+				$userUpdateDetails = $this->db->update('Users', $userEditDetails);
+				return $userUpdateDetails;
+			} else {
+				// If updated details are same as existing, return false
+				return false;
+			}
+		} catch (Exception $e) {
+			// Log database update errors
+			log_message('error', 'Database update error: ' . $e->getMessage());
+			// Return false indicating an error occurred during the update
+			return false;
+		}
+	}
+
+
+	/**
+	 * Changes the password of a user.
+	 *
+	 * @param int $user_id The ID of the user.
+	 * @param string $oldPassword The current password of the user.
+	 * @param string $newPassword The new password for the user.
+	 * @return mixed Returns the new password if password change is successful, otherwise returns false.
+	 */
+	public function changePassword($user_id, $oldPassword, $newPassword)
+	{
+		// Selecting password from the 'Users' table based on user_id
 		$this->db->select('password');
 		$this->db->where('user_id', $user_id);
-		$existingPasswordQuery = $this->db->get('users');
 
-		// Check if user exists and retrieve the existing password
-		if ($existingPasswordQuery->num_rows() > 0) {
-			$existingPasswordRow = $existingPasswordQuery->row();
-			$existingPassword = $existingPasswordRow->password;
+		// Executing the database query
+		$query = $this->db->get('Users');
 
-			// Compare old password with the existing password
-			if ($oldpassword == $existingPassword) {
-				// Update password
+		// If at least one user found with the provided user_id
+		if ($query->num_rows() > 0) {
+			$existingPasswordQuery = $query->row();
+			$existingPassword = $existingPasswordQuery->password;
+
+			// Checking if the old password matches the existing password
+			if ($oldPassword == $existingPassword) {
+				// Updating the password with the new one
 				$this->db->where('user_id', $user_id);
-				$this->db->update('users', array('password' => $newpassword));
+				$this->db->update('Users', array('password' => $newPassword));
 
-				// Check if the password was successfully updated
+				// If password update is successful, return the new password
 				if ($this->db->affected_rows() > 0) {
-					return $newpassword; // Password updated successfully
+					return $newPassword;
 				} else {
-					return false; // Failed to update password
+					// If password update fails, return false
+					return false;
 				}
 			} else {
-				return false; // Old password doesn't match
+				// If old password does not match existing password, return false
+				return false;
 			}
 		} else {
-			return false; // User not found
-		}
-	}
-
-	public function resetPassword($username, $newpassword){
-		$this->db->select('password');
-		$this->db->where("(username = '$username' OR email = '$username')");
-		$existingPasswordQuery = $this->db->get('users');
-
-		if($existingPasswordQuery->num_rows() > 0) {
-			$this->db->where("(username = '$username' OR email = '$username')");
-			$updatepassword = $this->db->update('users', array('password' => $newpassword));
-			return $updatepassword;
-//			if ($this->db->affected_rows() > 0) {
-//				return $newpassword;
-//			} else {
-//				return false;
-//			}
+			// If no user found with the provided user_id, return false
+			return false;
 		}
 	}
 
 
-//	public function updatePassword($user_id, $userData){
-//		$oldpassword = $userData['oldpassword'];
-//		$newpassword = $userData['newpassword'];
-//
-//		$this->db->select('password');
-//		$this->db->where('user_id', $user_id);
-//		$existingPassword = $this->db->get('users');
-//
-//		if($oldpassword == $existingPassword){
-//
-//		}
-//
-//	}
-
-	public function updateProfilePicture($user_id, $userData){
-
+	/**
+	 * Updates the profile picture of a user.
+	 *
+	 * @param int $user_id The ID of the user.
+	 * @param array $userData An associative array containing the updated user profile picture data.
+	 * @return boolean Returns true if profile picture update is successful, otherwise returns false.
+	 */
+	public function updateProfilePicture($user_id, $userData)
+	{
+		// Selecting user image from the 'Users' table based on user_id
 		$this->db->select('userimage');
 		$this->db->where('user_id', $user_id);
-		$existingData = $this->db->get('users')->row_array();
+		$query = $this->db->get('Users')->row_array();
 
-		// Check if the existing data is different from $userData
-		$isDifferent = false;
-		foreach ($existingData as $key => $value) {
-			if (isset($userData[$key]) && $existingData[$key] !== $userData[$key]) {
-				$isDifferent = true;
+		$isDifferentProfilePic = false;
+		// Checking if the updated profile picture is different from the existing one
+		foreach ($query as $key => $value) {
+			if (isset($userData[$key]) && $query[$key] !== $userData[$key]) {
+				$isDifferentProfilePic = true;
 				break;
 			}
 		}
 
-		if ($isDifferent) {
-			// Perform the update
+		// If updated profile picture is different, update the user's profile picture
+		if ($isDifferentProfilePic) {
 			$this->db->where('user_id', $user_id);
-			$updateDetails = $this->db->update('users', $userData);
-			return $updateDetails;
+			$updatedProfilePicture = $this->db->update('Users', $userData);
+			return $updatedProfilePicture;
 		} else {
-			// Data is already up to date, no need to update
+			// If updated profile picture is same as existing, return false
 			return false;
 		}
 	}
 
-	public function getUser($id){
+
+	/**
+	 * Retrieves user data based on user ID.
+	 *
+	 * @param int $id The ID of the user.
+	 * @return object|null Returns user data if user found, otherwise returns null.
+	 */
+	public function getUser($id)
+	{
+		// Selecting all fields from the 'Users' table where userID matches the provided ID
 		$this->db->select('*');
 		$this->db->where('userID', $id);
-		$this->db->from('users');
+		$this->db->from('Users');
 
-		$respond = $this->db->get();
-		return $respond->row();
-	}
-
-
-	public function checkUsernameExist($username){
-		$this->db->select('username, email');
-		$this->db->where("(username = '$username' OR email = '$username')");
-		$respond = $this->db->get('users');
-		if($respond->num_rows() == 1){
-			return true;
-		}else{
-			return false;
-		}
+		// Executing the database query
+		$response = $this->db->get();
+		// Returning the user data
+		return $response->row();
 	}
 }

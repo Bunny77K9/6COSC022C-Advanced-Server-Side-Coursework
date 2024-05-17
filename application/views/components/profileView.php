@@ -50,7 +50,7 @@
 							<div class="user-details mb-4">
 								<h1><%=firstname%> <%=lastname%></h1>
 								<p>@<%=username%></p>
-								<p><strong>Title: </strong><%=occupation%></p>
+								<p><strong>Title: </strong><%=title%></p>
 								<p><strong>Email: </strong><%=email%></p>
 							</div>
 
@@ -73,18 +73,18 @@
 
 							<!-- Progress Bar Section -->
 							<div class="pro-bar mb-3">
-								<p><strong>Asked Questions:</strong> <%= askquestioncnt %></p>
+								<p><strong>Asked Questions:</strong> <%= questioncount %></p>
 
 								<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
 									 style="height: 20px;">
-									<% let askCnt = askquestioncnt % 10; %>
+									<% let askCnt = questioncount % 10; %>
 									<% for (let i = 0; i < askCnt; i++) { %>
 									<div class="progress-bar bg-warning"
 										 style="width: 10%;"></div>
 									<% } %>
 								</div>
 
-								<% let questionLevelCount = Math.floor(askquestioncnt / 10); %>
+								<% let questionLevelCount = Math.floor(questioncount / 10); %>
 								<div class="level-container d-flex justify-content-between">
 									<p class="level" style="text-align: left">Level: <%= questionLevelCount
 										%></p>
@@ -92,18 +92,18 @@
 										+ 1 %> </p>
 								</div>
 
-								<p><strong>Answered Questions:</strong> <%= answerquestioncnt %></p>
+								<p><strong>Answered Questions:</strong> <%= answercount %></p>
 
 								<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
 									 style="height: 20px;">
-									<% let answerCnt = answerquestioncnt % 10; %>
+									<% let answerCnt = answercount % 10; %>
 									<% for (let i = 0; i < answerCnt; i++) { %>
 									<div class="progress-bar bg-warning"
 										 style="width: 10%;"></div>
 									<% } %>
 								</div>
 
-								<% let answerLevelCount = Math.floor(answerquestioncnt / 10); %>
+								<% let answerLevelCount = Math.floor(answercount / 10); %>
 								<div class="level-container d-flex justify-content-between">
 									<p class="level" style="text-align: left">Level: <%= answerLevelCount
 										%></p>
@@ -117,14 +117,14 @@
 								<h5>Achievements</h5>
 								<hr>
 								<div class="achievement-badges d-flex flex-wrap">
-									<% if (askquestioncnt >= 1) { %>
+									<% if (questioncount >= 1) { %>
 									<div class="achievement-badge">
 										<img src="../../assets/images/achievements/goodfirstquestion.png"
 											 alt="Good First Question" class="img-fluid">
 										<p>Good First Question</p>
 									</div>
 									<% } %>
-									<% if (answerquestioncnt >= 1) { %>
+									<% if (answercount >= 1) { %>
 									<div class="achievement-badge">
 										<img src="../../assets/images/achievements/goodfirstanswer.png"
 											 alt="Good First Answer" class="img-fluid">
@@ -248,7 +248,7 @@
 									</div>
 									<div class="mb-3">
 										<label for="title">Title</label>
-										<input type="text" class="form-control" id="title" value="<%=occupation%>"
+										<input type="text" class="form-control" id="title" value="<%=title%>"
 											   required>
 									</div>
 									<div class="mb-3">

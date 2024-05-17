@@ -88,6 +88,7 @@ app.views.profileView = Backbone.View.extend({
 		var userJson = JSON.parse(localStorage.getItem("user"));
 
 		var validateEditUserDetailsForm = validateEditUserDetailsAddForm();
+
 		validateEditUserDetailsForm['user_id'] = userJson['user_id'];
 
 		if (validateEditUserDetailsForm.firstname) {
