@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
 <script type="text/template" id="login-template">
 	<div class="row no-gutters">
 		<div class="col-sm-6 mx-auto loin-signup">

@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
 <script type="text/template" id="category-template">
 	<div class="container row">
 		<div class="col-sm-2 d-flex justify-content-center"

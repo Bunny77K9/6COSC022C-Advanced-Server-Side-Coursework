@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
 <script type="text/template" id="answer-template">
 	<div class="row answer">
 		<div class="answer-controls col-sm-1 text-center d-flex flex-column">

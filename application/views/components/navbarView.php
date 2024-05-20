@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
 <script type="text/template" id="navbar-template">
 	<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
