@@ -21,14 +21,7 @@ app.views.newQuestionView = Backbone.View.extend({
 
 		var validateQuestionForm = validateQuestionAddForm();
 
-		if (!validateQuestionForm.title) {
-			new Noty({
-				theme: 'bootstrap-v4', layout: 'bottomRight',
-				type: 'error',
-				text: "Form validation error: " + validateQuestionForm,
-				timeout: 2000
-			}).show();
-		} else {
+		if (validateQuestionForm.title && validateQuestionForm.description && validateQuestionForm.expectation && validateQuestionForm.tags && validateQuestionForm.category) {
 			var formData = new FormData();
 			var imageFile = $('#imageUpload')[0].files[0];
 			formData.append('image', imageFile);
@@ -85,6 +78,13 @@ app.views.newQuestionView = Backbone.View.extend({
 					}).show();
 				}
 			});
+		} else {
+			new Noty({
+				theme: 'bootstrap-v4', layout: 'bottomRight',
+				type: 'error',
+				text: "Form validation error: " + validateQuestionForm,
+				timeout: 2000
+			}).show();
 		}
 	}
 })
