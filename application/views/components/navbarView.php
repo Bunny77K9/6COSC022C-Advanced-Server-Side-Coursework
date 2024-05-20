@@ -23,7 +23,11 @@
 					<li class="nav-item">
 						<div class="nav-link">
 							<a class="profile-btn" href="#questions/user">
-								<img src="<%=userimage%>" alt="profile image" class="profile-img me-1">
+								<% if (profileimg != "") { %>
+								<img src="<%=profileimg%>" alt="profile image" class="profile-img me-1">
+								<% } else { %>
+								<img src="../../assets/images/profileimg/user.png"  class="profile-img me-1" alt="User Image">
+								<% } %>
 								<%=firstname%>
 							</a>
 						</div>

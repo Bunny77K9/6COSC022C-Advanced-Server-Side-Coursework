@@ -36,10 +36,10 @@
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="profile-picture">
-							<% if (userimage != "") { %>
-							<img src="<%=userimage%>" alt="User Image">
+							<% if (profileimg != "") { %>
+							<img src="<%=profileimg%>" alt="User Image">
 							<% } else { %>
-							<img src="../../assets/images/userimage/face-scan.png" alt="User Image">
+							<img src="../../assets/images/profileimg/user.png" alt="User Image">
 							<% } %>
 						</div>
 					</div>

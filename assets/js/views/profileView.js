@@ -44,16 +44,16 @@ app.views.profileView = Backbone.View.extend({
 				contentType: false,
 				processData: false,
 				success: (response) => {
-					validateUpdateUserProfile.userimage = response.imagePath;
+					validateUpdateUserProfile.profileimg = response.imagePath;
 					this.model.set(validateUpdateUserProfile);
-					$updateImage = this.model.attributes.userimage;
+					$updateImage = this.model.attributes.profileimg;
 
 					var url = this.model.url + "upload_image";
 
 					this.model.save(this.model.attributes, {
 						"url": url,
 						success: (model, response) => {
-							userJson['userimage'] = $updateImage;
+							userJson['profileimg'] = $updateImage;
 							localStorage.setItem("user", JSON.stringify(userJson));
 							new Noty({
 								theme: 'bootstrap-v4', layout: 'bottomRight',

@@ -10,7 +10,7 @@ app.models.User = Backbone.Model.extend({
 		user_id: null,
 		title: "",
 		premium: false,
-		userimage: "",
+		profileimg: "",
 		answercount: null,
 		questioncount: null,
 	},

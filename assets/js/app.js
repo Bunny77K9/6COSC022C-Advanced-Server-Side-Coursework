@@ -51,7 +51,7 @@ function validateRegisterForm() {
 
 function validateUpdateUserProfileForm() {
 	var userImg = {
-		'userimage': $("input#change-profile-picture-input")[0].files[0]
+		'profileimg': $("input#change-profile-picture-input")[0].files[0]
 	};
 	return userImg;
 }

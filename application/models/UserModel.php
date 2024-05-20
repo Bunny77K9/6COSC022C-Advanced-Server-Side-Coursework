@@ -255,7 +255,7 @@ class UserModel extends CI_Model
 	public function updateProfilePicture($user_id, $userData)
 	{
 		// Selecting user image from the 'Users' table based on user_id
-		$this->db->select('userimage');
+		$this->db->select('profileimg');
 		$this->db->where('user_id', $user_id);
 		$query = $this->db->get('Users')->row_array();
 

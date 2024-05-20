@@ -52,7 +52,7 @@ class User extends REST_Controller
 						'user_id' => $loginUserResponse->user_id,
 						'premium' => $loginUserResponse->premium,
 						'title' => $loginUserResponse->title,
-						'userimage' => $loginUserResponse->userimage,
+						'profileimg' => $loginUserResponse->profileimg,
 						'firstname' => $loginUserResponse->firstname,
 						'lastname' => $loginUserResponse->lastname,
 						'email' => $loginUserResponse->email,
@@ -263,7 +263,7 @@ class User extends REST_Controller
 	{
 		if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
 			// Set upload directory
-			$uploadDir = '/Applications/XAMPP/xamppfiles/htdocs/DevForum/assets/images/userimage/';
+			$uploadDir = '/Applications/XAMPP/xamppfiles/htdocs/DevForum/assets/images/profileimg/';
 
 			$config['upload_path'] = $uploadDir;
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -274,7 +274,7 @@ class User extends REST_Controller
 			// Attempt to upload the image
 			if ($this->upload->do_upload('image')) {
 				$uploadData = $this->upload->data();
-				$imagePath = '../../assets/images/userimage/' . $uploadData['file_name'];
+				$imagePath = '../../assets/images/profileimg/' . $uploadData['file_name'];
 
 				// Respond with success status and image path
 				$this->response(array('imagePath' => $imagePath), REST_Controller::HTTP_OK);
@@ -296,13 +296,13 @@ class User extends REST_Controller
 	{
 		// Validate and sanitize input
 		$userId = strip_tags($this->post('user_id'));
-		$profilePicture = strip_tags($this->post('userimage'));
+		$profilePicture = strip_tags($this->post('profileimg'));
 
 		if (!empty($userId) && !empty($profilePicture)) {
 			// Prepare profile data
 			$profileData = array(
 				'user_id' => $userId,
-				'userimage' => $profilePicture
+				'profileimg' => $profilePicture
 			);
 
 			// Attempt to update profile picture
