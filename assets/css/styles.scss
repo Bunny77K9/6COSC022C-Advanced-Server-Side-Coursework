@@ -61,46 +61,50 @@ body {
 }
 
 /* ====================== Side Navbar ====================== */
-
-.sidebar {
-	position: fixed;
+.sidebar-container {
+	border-right: 1px solid #c9c9c9;
 	height: 85vh;
 
-	.side-nav {
-		li {
-			a {
-				margin: 10px 0;
-				font-size: 16px;
-				color: #000;
-				padding: 15px;
-				background: #fff;
-				box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
+	.sidebar {
+		position: fixed;
+		height: 85vh;
 
-				&:hover {
-					background-color: #f5f5f5;
+		.side-nav {
+			li {
+				a {
+					margin: 10px 0;
+					font-size: 16px;
+					color: #000;
+					padding: 15px;
+					background: #fff;
+					box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
+
+					&:hover {
+						background-color: #f5f5f5;
+					}
+
+					.side-title {
+						margin-left: 10px;
+					}
 				}
 
-				.side-title {
-					margin-left: 10px;
+				.link-active {
+					color: #007bff;
+					border-color: #007bff
 				}
-			}
-
-			.link-active {
-				color: #007bff;
-				border-color: #007bff
 			}
 		}
-	}
 
-	.logout-btn {
-		font-size: 16px;
-		color: #dc3545;
-		padding: 15px;
-		background: #fff;
-		box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
+		.logout-btn {
+			font-size: 16px;
+			color: #dc3545;
+			padding: 15px;
+			background: #fff;
+			box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
 
-		&:hover {
-			background-color: #ffe0e2;
+			&:hover {
+				background-color: #ffe0e2;
+			}
 		}
 	}
 }

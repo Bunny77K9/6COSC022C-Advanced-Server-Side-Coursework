@@ -3,8 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <script type="text/template" id="bookmark-template">
 	<div class="container row">
-		<div class="col-sm-2 d-flex justify-content-center"
-			 style="border-right: 1px solid #c9c9c9;">
+		<div class="col-sm-2 d-flex justify-content-center sidebar-container">
 			<div class="d-flex flex-column sidebar">
 				<ul class="nav nav-pills flex-column mb-auto side-nav">
 					<li class="nav-item">
