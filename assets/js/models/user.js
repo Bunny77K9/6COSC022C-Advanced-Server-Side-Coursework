@@ -1,6 +1,6 @@
 var app = app || {};
 app.models.User = Backbone.Model.extend({
-	urlRoot: '/DevForum/index.php/api/User/',
+	urlRoot: '/index.php/api/User/',
 	defaults: {
 		firstname: "",
 		lastname: "",
@@ -14,7 +14,7 @@ app.models.User = Backbone.Model.extend({
 		answercount: null,
 		questioncount: null,
 	},
-	url: '/DevForum/index.php/api/User/',
-	urlAskQuestion: '/DevForum/index.php/api/Question/'
+	url: '/index.php/api/User/',
+	urlAskQuestion: '/index.php/api/Question/'
 
 });

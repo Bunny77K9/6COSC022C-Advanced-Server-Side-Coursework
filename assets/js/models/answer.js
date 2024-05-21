@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.models.Answers = Backbone.Model.extend({
-	urlRoot: '/DevForum/index.php/api/Answer/',
+	urlRoot: '/index.php/api/Answer/',
 	defaults:{
 		answerid: null,
 		questionid: null,
@@ -14,10 +14,10 @@ app.models.Answers = Backbone.Model.extend({
 		viewstatus: null,
 		answereddate: null
 	},
-	url: '/DevForum/index.php/api/Answer/',
+	url: '/index.php/api/Answer/',
 });
 
 app.collections.AnswerCollection = Backbone.Collection.extend({
 	model: app.models.Answers,
-	url: '/DevForum/index.php/api/Answer/',
+	url: '/index.php/api/Answer/',
 });

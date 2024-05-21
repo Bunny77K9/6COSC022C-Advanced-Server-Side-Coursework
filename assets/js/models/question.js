@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.models.Questions = Backbone.Model.extend({
-	urlRoot: '/DevForum/index.php/api/Question/',
+	urlRoot: '/index.php/api/Question/',
 	defaults: {
 		user_id: null,
 		title: null,
@@ -17,11 +17,11 @@ app.models.Questions = Backbone.Model.extend({
 		date:null,
 		answereddate:null,
 	},
-	url: '/DevForum/index.php/api/Question/',
-	urlAns: '/DevForum/index.php/api/Answer/',
+	url: '/index.php/api/Question/',
+	urlAns: '/index.php/api/Answer/',
 });
 
 app.collections.QuestionCollection = Backbone.Collection.extend({
 	model: app.models.Questions,
-	url: '/DevForum/index.php/api/Question/',
+	url: '/index.php/api/Question/',
 });
