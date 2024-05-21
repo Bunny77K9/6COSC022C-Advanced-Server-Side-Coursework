@@ -1,71 +1,67 @@
-###################
-What is CodeIgniter
-###################
+# Dev Forum - A Technical Q&A Platform
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Dev Forum is a dynamic platform designed to facilitate knowledge exchange and collaboration within the tech community. It empowers users to ask technical questions, provide insightful answers, and engage in meaningful discussions.
 
-*******************
-Release Information
-*******************
+## Key Features
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+- **User Registration and Authentication:** Securely create accounts, manage profiles, and personalize your experience.
+- **Question Posting and Browsing:** Seamlessly post technical queries and explore a vast repository of existing questions.
+- **Answer Submission and Voting:** Contribute solutions, upvote or downvote answers based on their relevance and accuracy.
+- **Comment System:** Engage in in-depth discussions, seek clarifications, and exchange knowledge with fellow users.
+- **Question Grouping (Tagging):** Organize questions by topics or relevance using tags for efficient navigation and discovery.
+- **Image Uploads:** Enhance your questions and answers with visual aids for better clarity and understanding.
+- **Bookmarking:** Save interesting questions for future reference and easy access.
+- **User Profiles:** Showcase your expertise, track your contributions, and build your reputation within the community.
+- **Achievements and Levels:** Earn recognition and rewards for your active participation and valuable contributions.
+- **Notifications:** Stay informed about new answers, upvotes, and comments related to your activity.
+- **Rich Text Formatting:** Craft well-structured and visually appealing questions and answers using basic HTML or Markdown.
 
-**************************
-Changelog and New Features
-**************************
+## Technologies Used
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+- **PHP 8.0:** Robust server-side scripting language for dynamic content generation.
+- **CodeIgniter 3.1.13:** Streamlined PHP framework for efficient web application development.
+- **Backbone.js:** Lightweight JavaScript framework for structured client-side interactions.
+- **MySQL:** Reliable database management system for storing and retrieving data.
+- **Azure Web App Service:** Scalable cloud platform for hosting web applications.
+- **Azure Database for MySQL:** Managed MySQL database service on Azure.
+- **SQL Workbench:** Powerful tool for database administration and development.
 
-*******************
-Server Requirements
-*******************
+## Installation and Setup
 
-PHP version 5.6 or newer is recommended.
+### Clone the Repository
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+```bash
+git clone https://github.com/your-username/DevForum.git
+```
 
-************
-Installation
-************
+### Database Setup
 
-Please see the `installation section <https://codeigniter.com/userguide3/installation/index.html>`_
-of the CodeIgniter User Guide.
+1. Create a MySQL database on Azure.
+2. Import the provided SQL schema (`dev_forum.sql`) into your database.
+3. Configure database connection settings in `application/config/database.php`.
 
-*******
-License
-*******
+### Azure Deployment
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+1. Deploy the application to Azure Web App Service.
+2. Set up environment variables for database credentials and other configurations.
 
-*********
-Resources
-*********
+## Usage
 
--  `User Guide <https://codeigniter.com/docs>`_
--  `Contributing Guide <https://github.com/bcit-ci/CodeIgniter/blob/develop/contributing.md>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
+- **Register/Login:** Create an account or log in to your existing account.
+- **Ask Questions:** Click on "Ask Question" and fill in the details.
+- **Browse and Answer:** Explore questions, provide answers, and participate in discussions.
+- **Vote and Comment:** Upvote or downvote answers, and leave comments to share your insights.
+- **Bookmark and Profile:** Save interesting questions and manage your profile information.
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
+## Contributing
 
-***************
-Acknowledgement
-***************
+Contributions are welcome! Feel free to submit issues, bug reports, or pull requests.
 
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgements
+
+This project was developed as part of the Advanced Server-Side Web Programming module at the University of Westminster.
+Special thanks to Mr. Ruwan Egodawatte for his guidance and support.
