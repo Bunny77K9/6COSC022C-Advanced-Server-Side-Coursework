@@ -1,5 +1,7 @@
 # Dev Forum - A Technical Q&A Platform
 
+[![Build and deploy](https://github.com/Bunny77K9/6COSC022C-Advanced-Server-Side-Coursework/actions/workflows/main_devforum.yml/badge.svg)](https://github.com/Bunny77K9/6COSC022C-Advanced-Server-Side-Coursework/actions/workflows/main_devforum.yml)
+
 Dev Forum is a dynamic platform designed to facilitate knowledge exchange and collaboration within the tech community. It empowers users to ask technical questions, provide insightful answers, and engage in meaningful discussions.
 
 ## 🚀 Key Features
