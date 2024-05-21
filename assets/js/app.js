@@ -179,14 +179,14 @@ function validateQuestionAddForm() {
 
 	var inputError1 = 'Title field is empty';
 	var inputError2 = 'Question field is empty';
-	var inputError3 = 'Question should be at least 50 characters';
+	var inputError3 = 'Question should be at least 100 characters';
 	var inputError4 = 'Expectation field is empty';
 	var inputError5 = 'Expectation should be at least 20 characters';
 	var inputError6 = 'At least one tag required';
 	var inputError7 = 'Maximum of 5 tags allowed';
 	var inputError8 = 'Category is not selected';
 	var inputError9 = 'Title should be at least 20 characters';
-	var inputError10 = 'Title should not exceed 100 characters';
+	var inputError10 = 'Title should not exceed 150 characters';
 
 	console.log("title:", question.title, "description:", question.description, "expectation:", question.expectation, "images:", question.images, "category:", question.category, "tags:", question.tags, "date:", question.date);
 
@@ -194,13 +194,13 @@ function validateQuestionAddForm() {
 
 	if (!question.title) {
 		return inputError1;
-	} else if (question.title.length > 50) {
+	} else if (question.title.length < 20) {
 		return inputError9;
-	} else if (question.title.length > 100) {
+	} else if (question.title.length > 150) {
 		return inputError10;
 	} else if (!question.description) {
 		return inputError2;
-	} else if (question.description.length < 20) {
+	} else if (question.description.length < 100) {
 		return inputError3;
 	} else if (!question.expectation) {
 		return inputError4;
