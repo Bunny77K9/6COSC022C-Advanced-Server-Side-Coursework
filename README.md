@@ -4,6 +4,8 @@
 
 Dev Forum is a dynamic platform designed to facilitate knowledge exchange and collaboration within the tech community. It empowers users to ask technical questions, provide insightful answers, and engage in meaningful discussions.
 
+https://devforum.azurewebsites.net/index.php/home/
+
 ## 🚀 Key Features
 
 - **User Registration and Authentication:** Securely create accounts, manage profiles, and personalize your experience.
@@ -82,12 +84,12 @@ Contributions are welcome! Feel free to submit issues, bug reports, or pull requ
 
 ## 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgements
 
-This project was developed as part of the Advanced Server-Side Web Programming module at the University of Westminster.
-Special thanks to Mr. Ruwan Egodawatte for his guidance and support.
+This project was developed as part of the Advanced Server-Side Web Programming module at the University of Westminster, UK.
+Special thanks to [Mr. Ruwan Egodawatte](https://www.linkedin.com/in/ruwanego/) for his guidance and support.
 
 ## 📚 References
 
